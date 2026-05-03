@@ -143,6 +143,102 @@ pizza2 = print(Pizza.pepperoni().ingredients)
 
 print(Pizza.get_total_pizzas())
 
+# Section 5: Abstract Methods
+
+print("=" *60)
+print("Section 5: Abstract Methods")
+print("=" *60)
+
+from abc import ABC, abstractmethod
+
+class Animal(ABC):
+    def __init__(self, name):
+        self.name = name
+
+    @abstractmethod
+    def make_sound(self):
+        pass
+    @abstractmethod
+    def move(self):
+        pass
+    @abstractmethod
+    def sleep(self):
+        pass
+
+
+class Dog(Animal):
+
+    def sleep(self):
+        print("zzzz")
+    def move(self):
+        print("dog is moving")
+    def make_sound(self):
+        print("whof whof")
+
+it = Dog("it")
+
+it.make_sound()
+
+# overloading, overriding, final
+
+
+# Section 6: Overloading
+
+print("=" *60)
+print("Section 6: Overloading")
+print("=" *60)
+
+from typing import overload, Union
+
+class Calculator:
+    @overload
+    def add(self, a: int, b: int) -> int:
+        ...
+
+    @overload
+    def add(self, a: int, b: int, c: int) -> int:
+        ...
+
+    def add(self, a: int, b: int, c: int | None = None)-> int:
+        if c is None:
+            return a+b
+        if isinstance(c, int):
+            return a+b+c
+        else:
+            raise ValueError("You can add 2 or 3 arguments at once!")
+
+    @overload
+    def process(self, value: int)-> int:
+        ...
+
+    @overload
+    def process(self, value: str) -> str:
+        ...
+
+    def process(self, value: Union[int, str]) -> Union[int,str]:
+        if isinstance(value, str):
+            return value.upper()
+        elif isinstance(value, int):
+            return value * 2
+        else:
+            raise ValueError("Value must be an integer or a string")
+
+
+
+
+
+
+calc = Calculator()
+
+print(calc.add(10, 20, 30))
+
+print(calc.process("messi"))
+print(calc.process(10))
+
+
+
+
+
 
 
 
