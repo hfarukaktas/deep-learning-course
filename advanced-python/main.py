@@ -233,10 +233,10 @@ print(calc.process("messi"))
 print(calc.process(10))
 
 
-# Section 4: Final
+# Section 7: Final
 
 print("=" *60)
-print("Section 4: Final")
+print("Section 7: Final")
 print("=" *60)
 
 from typing import final
@@ -280,7 +280,38 @@ class MySecondGame(SecretAlgorithm):
     pass
 
 
+# Section 8: Override
 
+print("=" *60)
+print("Section 8: Override")
+print("=" *60)
+
+from typing import override
+
+class Shape:
+
+    def area(self) -> float:
+        return 0.0
+    def perimeter(self) -> float:
+        return 0.0
+
+class Rectangle(Shape):
+    def __init__(self, width: float, height: float):
+        self.width = width
+        self.height = height
+    @override
+    def area(self) -> float:
+        return self.width * self.height
+    
+    @override
+    def perimeter(self) -> float:
+        return (self.width + self.height) * 2
+
+
+rectangle = Rectangle(5,4)
+
+print(rectangle.area())
+print(rectangle.perimeter())
 
 
 
