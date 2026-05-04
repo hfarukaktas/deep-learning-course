@@ -225,9 +225,6 @@ class Calculator:
 
 
 
-
-
-
 calc = Calculator()
 
 print(calc.add(10, 20, 30))
@@ -235,6 +232,52 @@ print(calc.add(10, 20, 30))
 print(calc.process("messi"))
 print(calc.process(10))
 
+
+# Section 4: Final
+
+print("=" *60)
+print("Section 4: Final")
+print("=" *60)
+
+from typing import final
+
+class BaseGame:
+
+    def start(self):
+        print("game started")
+
+    @final
+    def calculate_score(self, points: int) -> int:
+        bonus = 100
+        return points + bonus
+
+    def end(self):
+        print("game over")
+
+
+class MyGame(BaseGame):
+    def start(self):
+        #override
+        print("my game started")
+
+    def calculate_score(self, points: int) -> int:
+        return(points * 2)
+
+myGame = MyGame()
+
+myGame.start()
+
+print(myGame.calculate_score(100))
+
+@final
+class SecretAlgorithm:
+    def process(self):
+        print("secret algorithm used")
+
+
+# ide gives us a warning about final
+class MySecondGame(SecretAlgorithm):
+    pass
 
 
 
