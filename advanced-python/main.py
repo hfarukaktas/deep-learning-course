@@ -302,7 +302,7 @@ class Rectangle(Shape):
     @override
     def area(self) -> float:
         return self.width * self.height
-    
+
     @override
     def perimeter(self) -> float:
         return (self.width + self.height) * 2
@@ -315,6 +315,25 @@ print(rectangle.perimeter())
 
 
 
+# Section 9: Combining Decorators
 
+print("=" *60)
+print("Section 9: Combining Decorators")
+print("=" *60)
 
+def multiply_decorator(func):
+    def wrapper(x: int):
+        return func(x) * 2
+    return wrapper
 
+def other_decorator(func):
+    def wrapper(x: int):
+        return func(x) * 3
+    return wrapper
+
+@other_decorator
+@multiply_decorator
+def calculate(x: int):
+    return x * 2
+
+print(calculate(10))
