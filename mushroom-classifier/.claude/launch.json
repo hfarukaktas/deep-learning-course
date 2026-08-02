@@ -1,0 +1,21 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "mushroom-classifier",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "uvicorn",
+        "main:app",
+        "--app-dir",
+        "/Users/hasanfarukaktas/Documents/GitHub/deep-learning-course/mushroom-classifier",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8077"
+      ],
+      "port": 8077
+    }
+  ]
+}

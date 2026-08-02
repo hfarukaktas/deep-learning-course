@@ -1,0 +1,1998 @@
+{
+  "dataset": {
+    "total": 8124,
+    "edible": 4208,
+    "poisonous": 3916,
+    "edible_pct": 51.8,
+    "poisonous_pct": 48.2,
+    "n_raw_features": 22,
+    "n_model_features": 20,
+    "n_encoded": 94
+  },
+  "feature_importance": [
+    {
+      "key": "odor",
+      "label": "Koku",
+      "icon": "👃",
+      "cramers_v": 0.9706,
+      "rule_accuracy": 98.52,
+      "n_values": 9
+    },
+    {
+      "key": "spore-print-color",
+      "label": "Spor İzi Rengi",
+      "icon": "✨",
+      "cramers_v": 0.752,
+      "rule_accuracy": 86.8,
+      "n_values": 9
+    },
+    {
+      "key": "gill-color",
+      "label": "Lamel Rengi",
+      "icon": "🌈",
+      "cramers_v": 0.6799,
+      "rule_accuracy": 80.5,
+      "n_values": 12
+    },
+    {
+      "key": "ring-type",
+      "label": "Halka Tipi",
+      "icon": "⭕",
+      "cramers_v": 0.6029,
+      "rule_accuracy": 77.55,
+      "n_values": 5
+    },
+    {
+      "key": "stalk-surface-above-ring",
+      "label": "Sap Yüzeyi (halka üstü)",
+      "icon": "⬆️",
+      "cramers_v": 0.5877,
+      "rule_accuracy": 77.45,
+      "n_values": 4
+    },
+    {
+      "key": "stalk-surface-below-ring",
+      "label": "Sap Yüzeyi (halka altı)",
+      "icon": "⬇️",
+      "cramers_v": 0.5746,
+      "rule_accuracy": 76.61,
+      "n_values": 4
+    },
+    {
+      "key": "gill-size",
+      "label": "Lamel Boyutu",
+      "icon": "📐",
+      "cramers_v": 0.5397,
+      "rule_accuracy": 75.63,
+      "n_values": 2
+    },
+    {
+      "key": "stalk-color-above-ring",
+      "label": "Sap Rengi (halka üstü)",
+      "icon": "🖌️",
+      "cramers_v": 0.5239,
+      "rule_accuracy": 71.64,
+      "n_values": 9
+    },
+    {
+      "key": "stalk-color-below-ring",
+      "label": "Sap Rengi (halka altı)",
+      "icon": "🖍️",
+      "cramers_v": 0.5138,
+      "rule_accuracy": 71.44,
+      "n_values": 9
+    },
+    {
+      "key": "bruises",
+      "label": "Çürük / Morarma",
+      "icon": "🩹",
+      "cramers_v": 0.5012,
+      "rule_accuracy": 74.4,
+      "n_values": 2
+    },
+    {
+      "key": "population",
+      "label": "Topluluk",
+      "icon": "👥",
+      "cramers_v": 0.4868,
+      "rule_accuracy": 72.18,
+      "n_values": 6
+    },
+    {
+      "key": "habitat",
+      "label": "Yaşam Alanı",
+      "icon": "🌍",
+      "cramers_v": 0.4393,
+      "rule_accuracy": 69.03,
+      "n_values": 7
+    },
+    {
+      "key": "stalk-root",
+      "label": "Sap Kökü",
+      "icon": "🌰",
+      "cramers_v": 0.4062,
+      "rule_accuracy": 64.6,
+      "n_values": 5
+    },
+    {
+      "key": "gill-spacing",
+      "label": "Lamel Aralığı",
+      "icon": "📏",
+      "cramers_v": 0.3479,
+      "rule_accuracy": 61.6,
+      "n_values": 2
+    },
+    {
+      "key": "cap-shape",
+      "label": "Şapka Şekli",
+      "icon": "🍄",
+      "cramers_v": 0.2443,
+      "rule_accuracy": 56.43,
+      "n_values": 6
+    },
+    {
+      "key": "cap-color",
+      "label": "Şapka Rengi",
+      "icon": "🎨",
+      "cramers_v": 0.2159,
+      "rule_accuracy": 59.53,
+      "n_values": 10
+    },
+    {
+      "key": "ring-number",
+      "label": "Halka Sayısı",
+      "icon": "💍",
+      "cramers_v": 0.2142,
+      "rule_accuracy": 53.82,
+      "n_values": 3
+    },
+    {
+      "key": "cap-surface",
+      "label": "Şapka Yüzeyi",
+      "icon": "🪵",
+      "cramers_v": 0.196,
+      "rule_accuracy": 58.05,
+      "n_values": 4
+    },
+    {
+      "key": "veil-color",
+      "label": "Zar Rengi",
+      "icon": "🎭",
+      "cramers_v": 0.1522,
+      "rule_accuracy": 51.9,
+      "n_values": 4
+    },
+    {
+      "key": "stalk-shape",
+      "label": "Sap Şekli",
+      "icon": "🌱",
+      "cramers_v": 0.1012,
+      "rule_accuracy": 55.29,
+      "n_values": 2
+    }
+  ],
+  "breakdown": {
+    "cap-shape": {
+      "label": "Şapka Şekli",
+      "icon": "🍄",
+      "values": [
+        {
+          "code": "x",
+          "label": "Dışbükey",
+          "count": 3656,
+          "share": 45.0,
+          "edible": 1948,
+          "poisonous": 1708,
+          "poison_rate": 46.7,
+          "swatch": null
+        },
+        {
+          "code": "f",
+          "label": "Düz",
+          "count": 3152,
+          "share": 38.8,
+          "edible": 1596,
+          "poisonous": 1556,
+          "poison_rate": 49.4,
+          "swatch": null
+        },
+        {
+          "code": "k",
+          "label": "Tümsekli",
+          "count": 828,
+          "share": 10.2,
+          "edible": 228,
+          "poisonous": 600,
+          "poison_rate": 72.5,
+          "swatch": null
+        },
+        {
+          "code": "b",
+          "label": "Çan",
+          "count": 452,
+          "share": 5.6,
+          "edible": 404,
+          "poisonous": 48,
+          "poison_rate": 10.6,
+          "swatch": null
+        },
+        {
+          "code": "s",
+          "label": "Çukur",
+          "count": 32,
+          "share": 0.4,
+          "edible": 32,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": null
+        },
+        {
+          "code": "c",
+          "label": "Konik",
+          "count": 4,
+          "share": 0.0,
+          "edible": 0,
+          "poisonous": 4,
+          "poison_rate": 100.0,
+          "swatch": null
+        }
+      ]
+    },
+    "cap-surface": {
+      "label": "Şapka Yüzeyi",
+      "icon": "🪵",
+      "values": [
+        {
+          "code": "y",
+          "label": "Pullu",
+          "count": 3244,
+          "share": 39.9,
+          "edible": 1504,
+          "poisonous": 1740,
+          "poison_rate": 53.6,
+          "swatch": null
+        },
+        {
+          "code": "s",
+          "label": "Pürüzsüz",
+          "count": 2556,
+          "share": 31.5,
+          "edible": 1144,
+          "poisonous": 1412,
+          "poison_rate": 55.2,
+          "swatch": null
+        },
+        {
+          "code": "f",
+          "label": "Lifli",
+          "count": 2320,
+          "share": 28.6,
+          "edible": 1560,
+          "poisonous": 760,
+          "poison_rate": 32.8,
+          "swatch": null
+        },
+        {
+          "code": "g",
+          "label": "Oluklu",
+          "count": 4,
+          "share": 0.0,
+          "edible": 0,
+          "poisonous": 4,
+          "poison_rate": 100.0,
+          "swatch": null
+        }
+      ]
+    },
+    "cap-color": {
+      "label": "Şapka Rengi",
+      "icon": "🎨",
+      "values": [
+        {
+          "code": "n",
+          "label": "Kahverengi",
+          "count": 2284,
+          "share": 28.1,
+          "edible": 1264,
+          "poisonous": 1020,
+          "poison_rate": 44.7,
+          "swatch": "#8b5a2b"
+        },
+        {
+          "code": "g",
+          "label": "Gri",
+          "count": 1840,
+          "share": 22.6,
+          "edible": 1032,
+          "poisonous": 808,
+          "poison_rate": 43.9,
+          "swatch": "#9ca3af"
+        },
+        {
+          "code": "e",
+          "label": "Kırmızı",
+          "count": 1500,
+          "share": 18.5,
+          "edible": 624,
+          "poisonous": 876,
+          "poison_rate": 58.4,
+          "swatch": "#ef4444"
+        },
+        {
+          "code": "y",
+          "label": "Sarı",
+          "count": 1072,
+          "share": 13.2,
+          "edible": 400,
+          "poisonous": 672,
+          "poison_rate": 62.7,
+          "swatch": "#facc15"
+        },
+        {
+          "code": "w",
+          "label": "Beyaz",
+          "count": 1040,
+          "share": 12.8,
+          "edible": 720,
+          "poisonous": 320,
+          "poison_rate": 30.8,
+          "swatch": "#f4f4f5"
+        },
+        {
+          "code": "b",
+          "label": "Devetüyü",
+          "count": 168,
+          "share": 2.1,
+          "edible": 48,
+          "poisonous": 120,
+          "poison_rate": 71.4,
+          "swatch": "#d8c9a3"
+        },
+        {
+          "code": "p",
+          "label": "Pembe",
+          "count": 144,
+          "share": 1.8,
+          "edible": 56,
+          "poisonous": 88,
+          "poison_rate": 61.1,
+          "swatch": "#f9a8d4"
+        },
+        {
+          "code": "c",
+          "label": "Tarçın",
+          "count": 44,
+          "share": 0.5,
+          "edible": 32,
+          "poisonous": 12,
+          "poison_rate": 27.3,
+          "swatch": "#a0522d"
+        },
+        {
+          "code": "r",
+          "label": "Yeşil",
+          "count": 16,
+          "share": 0.2,
+          "edible": 16,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#4ade80"
+        },
+        {
+          "code": "u",
+          "label": "Mor",
+          "count": 16,
+          "share": 0.2,
+          "edible": 16,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#a78bfa"
+        }
+      ]
+    },
+    "bruises": {
+      "label": "Çürük / Morarma",
+      "icon": "🩹",
+      "values": [
+        {
+          "code": "f",
+          "label": "Morarmıyor",
+          "count": 4748,
+          "share": 58.4,
+          "edible": 1456,
+          "poisonous": 3292,
+          "poison_rate": 69.3,
+          "swatch": null
+        },
+        {
+          "code": "t",
+          "label": "Morarıyor",
+          "count": 3376,
+          "share": 41.6,
+          "edible": 2752,
+          "poisonous": 624,
+          "poison_rate": 18.5,
+          "swatch": null
+        }
+      ]
+    },
+    "odor": {
+      "label": "Koku",
+      "icon": "👃",
+      "values": [
+        {
+          "code": "n",
+          "label": "Kokusuz",
+          "count": 3528,
+          "share": 43.4,
+          "edible": 3408,
+          "poisonous": 120,
+          "poison_rate": 3.4,
+          "swatch": null
+        },
+        {
+          "code": "f",
+          "label": "Kokuşmuş",
+          "count": 2160,
+          "share": 26.6,
+          "edible": 0,
+          "poisonous": 2160,
+          "poison_rate": 100.0,
+          "swatch": null
+        },
+        {
+          "code": "s",
+          "label": "Baharatlı",
+          "count": 576,
+          "share": 7.1,
+          "edible": 0,
+          "poisonous": 576,
+          "poison_rate": 100.0,
+          "swatch": null
+        },
+        {
+          "code": "y",
+          "label": "Balık",
+          "count": 576,
+          "share": 7.1,
+          "edible": 0,
+          "poisonous": 576,
+          "poison_rate": 100.0,
+          "swatch": null
+        },
+        {
+          "code": "a",
+          "label": "Badem",
+          "count": 400,
+          "share": 4.9,
+          "edible": 400,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": null
+        },
+        {
+          "code": "l",
+          "label": "Anason",
+          "count": 400,
+          "share": 4.9,
+          "edible": 400,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": null
+        },
+        {
+          "code": "p",
+          "label": "Keskin",
+          "count": 256,
+          "share": 3.2,
+          "edible": 0,
+          "poisonous": 256,
+          "poison_rate": 100.0,
+          "swatch": null
+        },
+        {
+          "code": "c",
+          "label": "Katran",
+          "count": 192,
+          "share": 2.4,
+          "edible": 0,
+          "poisonous": 192,
+          "poison_rate": 100.0,
+          "swatch": null
+        },
+        {
+          "code": "m",
+          "label": "Küf",
+          "count": 36,
+          "share": 0.4,
+          "edible": 0,
+          "poisonous": 36,
+          "poison_rate": 100.0,
+          "swatch": null
+        }
+      ]
+    },
+    "gill-spacing": {
+      "label": "Lamel Aralığı",
+      "icon": "📏",
+      "values": [
+        {
+          "code": "c",
+          "label": "Sık",
+          "count": 6812,
+          "share": 83.9,
+          "edible": 3008,
+          "poisonous": 3804,
+          "poison_rate": 55.8,
+          "swatch": null
+        },
+        {
+          "code": "w",
+          "label": "Çok sık",
+          "count": 1312,
+          "share": 16.1,
+          "edible": 1200,
+          "poisonous": 112,
+          "poison_rate": 8.5,
+          "swatch": null
+        }
+      ]
+    },
+    "gill-size": {
+      "label": "Lamel Boyutu",
+      "icon": "📐",
+      "values": [
+        {
+          "code": "b",
+          "label": "Geniş",
+          "count": 5612,
+          "share": 69.1,
+          "edible": 3920,
+          "poisonous": 1692,
+          "poison_rate": 30.1,
+          "swatch": null
+        },
+        {
+          "code": "n",
+          "label": "Dar",
+          "count": 2512,
+          "share": 30.9,
+          "edible": 288,
+          "poisonous": 2224,
+          "poison_rate": 88.5,
+          "swatch": null
+        }
+      ]
+    },
+    "gill-color": {
+      "label": "Lamel Rengi",
+      "icon": "🌈",
+      "values": [
+        {
+          "code": "b",
+          "label": "Devetüyü",
+          "count": 1728,
+          "share": 21.3,
+          "edible": 0,
+          "poisonous": 1728,
+          "poison_rate": 100.0,
+          "swatch": "#d8c9a3"
+        },
+        {
+          "code": "p",
+          "label": "Pembe",
+          "count": 1492,
+          "share": 18.4,
+          "edible": 852,
+          "poisonous": 640,
+          "poison_rate": 42.9,
+          "swatch": "#f9a8d4"
+        },
+        {
+          "code": "w",
+          "label": "Beyaz",
+          "count": 1202,
+          "share": 14.8,
+          "edible": 956,
+          "poisonous": 246,
+          "poison_rate": 20.5,
+          "swatch": "#f4f4f5"
+        },
+        {
+          "code": "n",
+          "label": "Kahverengi",
+          "count": 1048,
+          "share": 12.9,
+          "edible": 936,
+          "poisonous": 112,
+          "poison_rate": 10.7,
+          "swatch": "#8b5a2b"
+        },
+        {
+          "code": "g",
+          "label": "Gri",
+          "count": 752,
+          "share": 9.3,
+          "edible": 248,
+          "poisonous": 504,
+          "poison_rate": 67.0,
+          "swatch": "#9ca3af"
+        },
+        {
+          "code": "h",
+          "label": "Çikolata",
+          "count": 732,
+          "share": 9.0,
+          "edible": 204,
+          "poisonous": 528,
+          "poison_rate": 72.1,
+          "swatch": "#5c3a21"
+        },
+        {
+          "code": "u",
+          "label": "Mor",
+          "count": 492,
+          "share": 6.1,
+          "edible": 444,
+          "poisonous": 48,
+          "poison_rate": 9.8,
+          "swatch": "#a78bfa"
+        },
+        {
+          "code": "k",
+          "label": "Siyah",
+          "count": 408,
+          "share": 5.0,
+          "edible": 344,
+          "poisonous": 64,
+          "poison_rate": 15.7,
+          "swatch": "#27272a"
+        },
+        {
+          "code": "e",
+          "label": "Kırmızı",
+          "count": 96,
+          "share": 1.2,
+          "edible": 96,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#ef4444"
+        },
+        {
+          "code": "y",
+          "label": "Sarı",
+          "count": 86,
+          "share": 1.1,
+          "edible": 64,
+          "poisonous": 22,
+          "poison_rate": 25.6,
+          "swatch": "#facc15"
+        },
+        {
+          "code": "o",
+          "label": "Turuncu",
+          "count": 64,
+          "share": 0.8,
+          "edible": 64,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#fb923c"
+        },
+        {
+          "code": "r",
+          "label": "Yeşil",
+          "count": 24,
+          "share": 0.3,
+          "edible": 0,
+          "poisonous": 24,
+          "poison_rate": 100.0,
+          "swatch": "#4ade80"
+        }
+      ]
+    },
+    "stalk-shape": {
+      "label": "Sap Şekli",
+      "icon": "🌱",
+      "values": [
+        {
+          "code": "t",
+          "label": "Daralan",
+          "count": 4608,
+          "share": 56.7,
+          "edible": 2592,
+          "poisonous": 2016,
+          "poison_rate": 43.8,
+          "swatch": null
+        },
+        {
+          "code": "e",
+          "label": "Genişleyen",
+          "count": 3516,
+          "share": 43.3,
+          "edible": 1616,
+          "poisonous": 1900,
+          "poison_rate": 54.0,
+          "swatch": null
+        }
+      ]
+    },
+    "stalk-root": {
+      "label": "Sap Kökü",
+      "icon": "🌰",
+      "values": [
+        {
+          "code": "b",
+          "label": "Soğanlı",
+          "count": 3776,
+          "share": 46.5,
+          "edible": 1920,
+          "poisonous": 1856,
+          "poison_rate": 49.2,
+          "swatch": null
+        },
+        {
+          "code": "?",
+          "label": "Bilinmiyor",
+          "count": 2480,
+          "share": 30.5,
+          "edible": 720,
+          "poisonous": 1760,
+          "poison_rate": 71.0,
+          "swatch": null
+        },
+        {
+          "code": "e",
+          "label": "Eşit",
+          "count": 1120,
+          "share": 13.8,
+          "edible": 864,
+          "poisonous": 256,
+          "poison_rate": 22.9,
+          "swatch": null
+        },
+        {
+          "code": "c",
+          "label": "Topuzlu",
+          "count": 556,
+          "share": 6.8,
+          "edible": 512,
+          "poisonous": 44,
+          "poison_rate": 7.9,
+          "swatch": null
+        },
+        {
+          "code": "r",
+          "label": "Köklü",
+          "count": 192,
+          "share": 2.4,
+          "edible": 192,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": null
+        }
+      ]
+    },
+    "stalk-surface-above-ring": {
+      "label": "Sap Yüzeyi (halka üstü)",
+      "icon": "⬆️",
+      "values": [
+        {
+          "code": "s",
+          "label": "Pürüzsüz",
+          "count": 5176,
+          "share": 63.7,
+          "edible": 3640,
+          "poisonous": 1536,
+          "poison_rate": 29.7,
+          "swatch": null
+        },
+        {
+          "code": "k",
+          "label": "İpeksi",
+          "count": 2372,
+          "share": 29.2,
+          "edible": 144,
+          "poisonous": 2228,
+          "poison_rate": 93.9,
+          "swatch": null
+        },
+        {
+          "code": "f",
+          "label": "Lifli",
+          "count": 552,
+          "share": 6.8,
+          "edible": 408,
+          "poisonous": 144,
+          "poison_rate": 26.1,
+          "swatch": null
+        },
+        {
+          "code": "y",
+          "label": "Pullu",
+          "count": 24,
+          "share": 0.3,
+          "edible": 16,
+          "poisonous": 8,
+          "poison_rate": 33.3,
+          "swatch": null
+        }
+      ]
+    },
+    "stalk-surface-below-ring": {
+      "label": "Sap Yüzeyi (halka altı)",
+      "icon": "⬇️",
+      "values": [
+        {
+          "code": "s",
+          "label": "Pürüzsüz",
+          "count": 4936,
+          "share": 60.8,
+          "edible": 3400,
+          "poisonous": 1536,
+          "poison_rate": 31.1,
+          "swatch": null
+        },
+        {
+          "code": "k",
+          "label": "İpeksi",
+          "count": 2304,
+          "share": 28.4,
+          "edible": 144,
+          "poisonous": 2160,
+          "poison_rate": 93.8,
+          "swatch": null
+        },
+        {
+          "code": "f",
+          "label": "Lifli",
+          "count": 600,
+          "share": 7.4,
+          "edible": 456,
+          "poisonous": 144,
+          "poison_rate": 24.0,
+          "swatch": null
+        },
+        {
+          "code": "y",
+          "label": "Pullu",
+          "count": 284,
+          "share": 3.5,
+          "edible": 208,
+          "poisonous": 76,
+          "poison_rate": 26.8,
+          "swatch": null
+        }
+      ]
+    },
+    "stalk-color-above-ring": {
+      "label": "Sap Rengi (halka üstü)",
+      "icon": "🖌️",
+      "values": [
+        {
+          "code": "w",
+          "label": "Beyaz",
+          "count": 4464,
+          "share": 54.9,
+          "edible": 2752,
+          "poisonous": 1712,
+          "poison_rate": 38.4,
+          "swatch": "#f4f4f5"
+        },
+        {
+          "code": "p",
+          "label": "Pembe",
+          "count": 1872,
+          "share": 23.0,
+          "edible": 576,
+          "poisonous": 1296,
+          "poison_rate": 69.2,
+          "swatch": "#f9a8d4"
+        },
+        {
+          "code": "g",
+          "label": "Gri",
+          "count": 576,
+          "share": 7.1,
+          "edible": 576,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#9ca3af"
+        },
+        {
+          "code": "n",
+          "label": "Kahverengi",
+          "count": 448,
+          "share": 5.5,
+          "edible": 16,
+          "poisonous": 432,
+          "poison_rate": 96.4,
+          "swatch": "#8b5a2b"
+        },
+        {
+          "code": "b",
+          "label": "Devetüyü",
+          "count": 432,
+          "share": 5.3,
+          "edible": 0,
+          "poisonous": 432,
+          "poison_rate": 100.0,
+          "swatch": "#d8c9a3"
+        },
+        {
+          "code": "o",
+          "label": "Turuncu",
+          "count": 192,
+          "share": 2.4,
+          "edible": 192,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#fb923c"
+        },
+        {
+          "code": "e",
+          "label": "Kırmızı",
+          "count": 96,
+          "share": 1.2,
+          "edible": 96,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#ef4444"
+        },
+        {
+          "code": "c",
+          "label": "Tarçın",
+          "count": 36,
+          "share": 0.4,
+          "edible": 0,
+          "poisonous": 36,
+          "poison_rate": 100.0,
+          "swatch": "#a0522d"
+        },
+        {
+          "code": "y",
+          "label": "Sarı",
+          "count": 8,
+          "share": 0.1,
+          "edible": 0,
+          "poisonous": 8,
+          "poison_rate": 100.0,
+          "swatch": "#facc15"
+        }
+      ]
+    },
+    "stalk-color-below-ring": {
+      "label": "Sap Rengi (halka altı)",
+      "icon": "🖍️",
+      "values": [
+        {
+          "code": "w",
+          "label": "Beyaz",
+          "count": 4384,
+          "share": 54.0,
+          "edible": 2704,
+          "poisonous": 1680,
+          "poison_rate": 38.3,
+          "swatch": "#f4f4f5"
+        },
+        {
+          "code": "p",
+          "label": "Pembe",
+          "count": 1872,
+          "share": 23.0,
+          "edible": 576,
+          "poisonous": 1296,
+          "poison_rate": 69.2,
+          "swatch": "#f9a8d4"
+        },
+        {
+          "code": "g",
+          "label": "Gri",
+          "count": 576,
+          "share": 7.1,
+          "edible": 576,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#9ca3af"
+        },
+        {
+          "code": "n",
+          "label": "Kahverengi",
+          "count": 512,
+          "share": 6.3,
+          "edible": 64,
+          "poisonous": 448,
+          "poison_rate": 87.5,
+          "swatch": "#8b5a2b"
+        },
+        {
+          "code": "b",
+          "label": "Devetüyü",
+          "count": 432,
+          "share": 5.3,
+          "edible": 0,
+          "poisonous": 432,
+          "poison_rate": 100.0,
+          "swatch": "#d8c9a3"
+        },
+        {
+          "code": "o",
+          "label": "Turuncu",
+          "count": 192,
+          "share": 2.4,
+          "edible": 192,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#fb923c"
+        },
+        {
+          "code": "e",
+          "label": "Kırmızı",
+          "count": 96,
+          "share": 1.2,
+          "edible": 96,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#ef4444"
+        },
+        {
+          "code": "c",
+          "label": "Tarçın",
+          "count": 36,
+          "share": 0.4,
+          "edible": 0,
+          "poisonous": 36,
+          "poison_rate": 100.0,
+          "swatch": "#a0522d"
+        },
+        {
+          "code": "y",
+          "label": "Sarı",
+          "count": 24,
+          "share": 0.3,
+          "edible": 0,
+          "poisonous": 24,
+          "poison_rate": 100.0,
+          "swatch": "#facc15"
+        }
+      ]
+    },
+    "veil-color": {
+      "label": "Zar Rengi",
+      "icon": "🎭",
+      "values": [
+        {
+          "code": "w",
+          "label": "Beyaz",
+          "count": 7924,
+          "share": 97.5,
+          "edible": 4016,
+          "poisonous": 3908,
+          "poison_rate": 49.3,
+          "swatch": "#f4f4f5"
+        },
+        {
+          "code": "n",
+          "label": "Kahverengi",
+          "count": 96,
+          "share": 1.2,
+          "edible": 96,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#8b5a2b"
+        },
+        {
+          "code": "o",
+          "label": "Turuncu",
+          "count": 96,
+          "share": 1.2,
+          "edible": 96,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#fb923c"
+        },
+        {
+          "code": "y",
+          "label": "Sarı",
+          "count": 8,
+          "share": 0.1,
+          "edible": 0,
+          "poisonous": 8,
+          "poison_rate": 100.0,
+          "swatch": "#facc15"
+        }
+      ]
+    },
+    "ring-number": {
+      "label": "Halka Sayısı",
+      "icon": "💍",
+      "values": [
+        {
+          "code": "o",
+          "label": "Bir",
+          "count": 7488,
+          "share": 92.2,
+          "edible": 3680,
+          "poisonous": 3808,
+          "poison_rate": 50.9,
+          "swatch": null
+        },
+        {
+          "code": "t",
+          "label": "İki",
+          "count": 600,
+          "share": 7.4,
+          "edible": 528,
+          "poisonous": 72,
+          "poison_rate": 12.0,
+          "swatch": null
+        },
+        {
+          "code": "n",
+          "label": "Yok",
+          "count": 36,
+          "share": 0.4,
+          "edible": 0,
+          "poisonous": 36,
+          "poison_rate": 100.0,
+          "swatch": null
+        }
+      ]
+    },
+    "ring-type": {
+      "label": "Halka Tipi",
+      "icon": "⭕",
+      "values": [
+        {
+          "code": "p",
+          "label": "Sarkık",
+          "count": 3968,
+          "share": 48.8,
+          "edible": 3152,
+          "poisonous": 816,
+          "poison_rate": 20.6,
+          "swatch": null
+        },
+        {
+          "code": "e",
+          "label": "Geçici",
+          "count": 2776,
+          "share": 34.2,
+          "edible": 1008,
+          "poisonous": 1768,
+          "poison_rate": 63.7,
+          "swatch": null
+        },
+        {
+          "code": "l",
+          "label": "Büyük",
+          "count": 1296,
+          "share": 16.0,
+          "edible": 0,
+          "poisonous": 1296,
+          "poison_rate": 100.0,
+          "swatch": null
+        },
+        {
+          "code": "f",
+          "label": "Yayvan",
+          "count": 48,
+          "share": 0.6,
+          "edible": 48,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": null
+        },
+        {
+          "code": "n",
+          "label": "Yok",
+          "count": 36,
+          "share": 0.4,
+          "edible": 0,
+          "poisonous": 36,
+          "poison_rate": 100.0,
+          "swatch": null
+        }
+      ]
+    },
+    "spore-print-color": {
+      "label": "Spor İzi Rengi",
+      "icon": "✨",
+      "values": [
+        {
+          "code": "w",
+          "label": "Beyaz",
+          "count": 2388,
+          "share": 29.4,
+          "edible": 576,
+          "poisonous": 1812,
+          "poison_rate": 75.9,
+          "swatch": "#f4f4f5"
+        },
+        {
+          "code": "n",
+          "label": "Kahverengi",
+          "count": 1968,
+          "share": 24.2,
+          "edible": 1744,
+          "poisonous": 224,
+          "poison_rate": 11.4,
+          "swatch": "#8b5a2b"
+        },
+        {
+          "code": "k",
+          "label": "Siyah",
+          "count": 1872,
+          "share": 23.0,
+          "edible": 1648,
+          "poisonous": 224,
+          "poison_rate": 12.0,
+          "swatch": "#27272a"
+        },
+        {
+          "code": "h",
+          "label": "Çikolata",
+          "count": 1632,
+          "share": 20.1,
+          "edible": 48,
+          "poisonous": 1584,
+          "poison_rate": 97.1,
+          "swatch": "#5c3a21"
+        },
+        {
+          "code": "r",
+          "label": "Yeşil",
+          "count": 72,
+          "share": 0.9,
+          "edible": 0,
+          "poisonous": 72,
+          "poison_rate": 100.0,
+          "swatch": "#4ade80"
+        },
+        {
+          "code": "b",
+          "label": "Devetüyü",
+          "count": 48,
+          "share": 0.6,
+          "edible": 48,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#d8c9a3"
+        },
+        {
+          "code": "o",
+          "label": "Turuncu",
+          "count": 48,
+          "share": 0.6,
+          "edible": 48,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#fb923c"
+        },
+        {
+          "code": "u",
+          "label": "Mor",
+          "count": 48,
+          "share": 0.6,
+          "edible": 48,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#a78bfa"
+        },
+        {
+          "code": "y",
+          "label": "Sarı",
+          "count": 48,
+          "share": 0.6,
+          "edible": 48,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": "#facc15"
+        }
+      ]
+    },
+    "population": {
+      "label": "Topluluk",
+      "icon": "👥",
+      "values": [
+        {
+          "code": "v",
+          "label": "Birkaç",
+          "count": 4040,
+          "share": 49.7,
+          "edible": 1192,
+          "poisonous": 2848,
+          "poison_rate": 70.5,
+          "swatch": null
+        },
+        {
+          "code": "y",
+          "label": "Tek başına",
+          "count": 1712,
+          "share": 21.1,
+          "edible": 1064,
+          "poisonous": 648,
+          "poison_rate": 37.9,
+          "swatch": null
+        },
+        {
+          "code": "s",
+          "label": "Dağınık",
+          "count": 1248,
+          "share": 15.4,
+          "edible": 880,
+          "poisonous": 368,
+          "poison_rate": 29.5,
+          "swatch": null
+        },
+        {
+          "code": "n",
+          "label": "Çok sayıda",
+          "count": 400,
+          "share": 4.9,
+          "edible": 400,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": null
+        },
+        {
+          "code": "a",
+          "label": "Bol",
+          "count": 384,
+          "share": 4.7,
+          "edible": 384,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": null
+        },
+        {
+          "code": "c",
+          "label": "Kümeli",
+          "count": 340,
+          "share": 4.2,
+          "edible": 288,
+          "poisonous": 52,
+          "poison_rate": 15.3,
+          "swatch": null
+        }
+      ]
+    },
+    "habitat": {
+      "label": "Yaşam Alanı",
+      "icon": "🌍",
+      "values": [
+        {
+          "code": "d",
+          "label": "Orman",
+          "count": 3148,
+          "share": 38.7,
+          "edible": 1880,
+          "poisonous": 1268,
+          "poison_rate": 40.3,
+          "swatch": null
+        },
+        {
+          "code": "g",
+          "label": "Çayır",
+          "count": 2148,
+          "share": 26.4,
+          "edible": 1408,
+          "poisonous": 740,
+          "poison_rate": 34.5,
+          "swatch": null
+        },
+        {
+          "code": "p",
+          "label": "Patika",
+          "count": 1144,
+          "share": 14.1,
+          "edible": 136,
+          "poisonous": 1008,
+          "poison_rate": 88.1,
+          "swatch": null
+        },
+        {
+          "code": "l",
+          "label": "Yaprak",
+          "count": 832,
+          "share": 10.2,
+          "edible": 240,
+          "poisonous": 592,
+          "poison_rate": 71.2,
+          "swatch": null
+        },
+        {
+          "code": "u",
+          "label": "Şehir",
+          "count": 368,
+          "share": 4.5,
+          "edible": 96,
+          "poisonous": 272,
+          "poison_rate": 73.9,
+          "swatch": null
+        },
+        {
+          "code": "m",
+          "label": "Otlak",
+          "count": 292,
+          "share": 3.6,
+          "edible": 256,
+          "poisonous": 36,
+          "poison_rate": 12.3,
+          "swatch": null
+        },
+        {
+          "code": "w",
+          "label": "Atık",
+          "count": 192,
+          "share": 2.4,
+          "edible": 192,
+          "poisonous": 0,
+          "poison_rate": 0.0,
+          "swatch": null
+        }
+      ]
+    }
+  },
+  "rules": [
+    {
+      "feature": "odor",
+      "feature_label": "Koku",
+      "icon": "👃",
+      "value": "Kokuşmuş",
+      "count": 2160,
+      "share": 26.6,
+      "verdict": "poisonous"
+    },
+    {
+      "feature": "gill-color",
+      "feature_label": "Lamel Rengi",
+      "icon": "🌈",
+      "value": "Devetüyü",
+      "count": 1728,
+      "share": 21.3,
+      "verdict": "poisonous"
+    },
+    {
+      "feature": "ring-type",
+      "feature_label": "Halka Tipi",
+      "icon": "⭕",
+      "value": "Büyük",
+      "count": 1296,
+      "share": 16.0,
+      "verdict": "poisonous"
+    },
+    {
+      "feature": "odor",
+      "feature_label": "Koku",
+      "icon": "👃",
+      "value": "Baharatlı",
+      "count": 576,
+      "share": 7.1,
+      "verdict": "poisonous"
+    },
+    {
+      "feature": "odor",
+      "feature_label": "Koku",
+      "icon": "👃",
+      "value": "Balık",
+      "count": 576,
+      "share": 7.1,
+      "verdict": "poisonous"
+    },
+    {
+      "feature": "stalk-color-above-ring",
+      "feature_label": "Sap Rengi (halka üstü)",
+      "icon": "🖌️",
+      "value": "Gri",
+      "count": 576,
+      "share": 7.1,
+      "verdict": "edible"
+    },
+    {
+      "feature": "stalk-color-below-ring",
+      "feature_label": "Sap Rengi (halka altı)",
+      "icon": "🖍️",
+      "value": "Gri",
+      "count": 576,
+      "share": 7.1,
+      "verdict": "edible"
+    },
+    {
+      "feature": "stalk-color-above-ring",
+      "feature_label": "Sap Rengi (halka üstü)",
+      "icon": "🖌️",
+      "value": "Devetüyü",
+      "count": 432,
+      "share": 5.3,
+      "verdict": "poisonous"
+    },
+    {
+      "feature": "stalk-color-below-ring",
+      "feature_label": "Sap Rengi (halka altı)",
+      "icon": "🖍️",
+      "value": "Devetüyü",
+      "count": 432,
+      "share": 5.3,
+      "verdict": "poisonous"
+    },
+    {
+      "feature": "odor",
+      "feature_label": "Koku",
+      "icon": "👃",
+      "value": "Badem",
+      "count": 400,
+      "share": 4.9,
+      "verdict": "edible"
+    },
+    {
+      "feature": "odor",
+      "feature_label": "Koku",
+      "icon": "👃",
+      "value": "Anason",
+      "count": 400,
+      "share": 4.9,
+      "verdict": "edible"
+    },
+    {
+      "feature": "population",
+      "feature_label": "Topluluk",
+      "icon": "👥",
+      "value": "Çok sayıda",
+      "count": 400,
+      "share": 4.9,
+      "verdict": "edible"
+    },
+    {
+      "feature": "population",
+      "feature_label": "Topluluk",
+      "icon": "👥",
+      "value": "Bol",
+      "count": 384,
+      "share": 4.7,
+      "verdict": "edible"
+    },
+    {
+      "feature": "odor",
+      "feature_label": "Koku",
+      "icon": "👃",
+      "value": "Keskin",
+      "count": 256,
+      "share": 3.2,
+      "verdict": "poisonous"
+    }
+  ],
+  "model": {
+    "architecture": "94 → 64 → ReLU → 64 → ReLU → 1 → Sigmoid",
+    "epochs": 100,
+    "batch_size": 64,
+    "optimizer": "Adam (lr=0.001)",
+    "loss": "BCELoss",
+    "n_params": 10305,
+    "train_accuracy": 100.0,
+    "test_accuracy": 100.0,
+    "final_train_loss": 5.95439133253632e-08,
+    "final_test_loss": 6.547078896801395e-07,
+    "confusion_matrix": [
+      [
+        842,
+        0
+      ],
+      [
+        0,
+        783
+      ]
+    ],
+    "train_size": 6499,
+    "test_size": 1625
+  },
+  "curves": {
+    "train_loss": [
+      0.26331394228377486,
+      0.014039468772574379,
+      0.003548184645577582,
+      0.0014743220302008912,
+      0.0007753039822160795,
+      0.00044604530931472065,
+      0.0002915810149654965,
+      0.0001879180136883782,
+      0.0001400460353162934,
+      0.0001067612272458277,
+      8.211897983335353e-05,
+      6.454631532859105e-05,
+      5.3364959027156726e-05,
+      4.3519704701913605e-05,
+      3.6934008556813904e-05,
+      3.170180197214832e-05,
+      2.694882787288353e-05,
+      2.3260570744661816e-05,
+      2.0579617690173184e-05,
+      1.8329073423866163e-05,
+      1.607641305978907e-05,
+      1.4394871868717019e-05,
+      1.266413798307344e-05,
+      1.1378787051702928e-05,
+      1.0150672170113157e-05,
+      9.179859917957772e-06,
+      8.393376072905008e-06,
+      7.637668376472976e-06,
+      6.953227929131663e-06,
+      6.27907800570504e-06,
+      5.755826166904552e-06,
+      5.2784118050400745e-06,
+      4.797270940229194e-06,
+      4.404289614515444e-06,
+      4.067359668589718e-06,
+      3.7439282822322884e-06,
+      3.4569998622612485e-06,
+      3.182551375646866e-06,
+      2.9409812473664228e-06,
+      2.707283599855597e-06,
+      2.5127830028419764e-06,
+      2.3277173456668376e-06,
+      2.1662476545015007e-06,
+      1.9849122517547334e-06,
+      1.844994712342725e-06,
+      1.7155184046324263e-06,
+      1.5946687459190923e-06,
+      1.4961247663838118e-06,
+      1.3909552562849269e-06,
+      1.2968690224626489e-06,
+      1.2049195890958444e-06,
+      1.1369879943819678e-06,
+      1.0561334094713083e-06,
+      9.902992445417465e-07,
+      9.358027277872829e-07,
+      8.675219299919511e-07,
+      8.155607454784347e-07,
+      7.602887045929656e-07,
+      7.134394691169163e-07,
+      6.684821280921261e-07,
+      6.31861236884574e-07,
+      5.913279737237471e-07,
+      5.53850791619976e-07,
+      5.186139512988722e-07,
+      4.847017579069202e-07,
+      4.5841579962906697e-07,
+      4.296134610244869e-07,
+      4.053633643035554e-07,
+      3.77212660446983e-07,
+      3.568451199580815e-07,
+      3.3520443450553184e-07,
+      3.149623287289473e-07,
+      2.9594910548993623e-07,
+      2.761990977451628e-07,
+      2.602417570266997e-07,
+      2.467528660262756e-07,
+      2.3152445051885164e-07,
+      2.1771833252519402e-07,
+      2.0557572081052768e-07,
+      1.9321524333985665e-07,
+      1.8342897143157922e-07,
+      1.7069515512363922e-07,
+      1.6138624026890703e-07,
+      1.5154287731116118e-07,
+      1.4373392938734816e-07,
+      1.3561652651560647e-07,
+      1.280200869738531e-07,
+      1.1937686772806528e-07,
+      1.127614465257581e-07,
+      1.0650636186721737e-07,
+      1.0027965521710484e-07,
+      9.482950272052015e-08,
+      8.936136797204748e-08,
+      8.464378943988765e-08,
+      7.929351559940008e-08,
+      7.536026399975211e-08,
+      7.108861059375814e-08,
+      6.63804060029643e-08,
+      6.28331044688153e-08,
+      5.95439133253632e-08
+    ],
+    "test_loss": [
+      0.03595065698027611,
+      0.008398864418268204,
+      0.0033526811748743057,
+      0.0018895067041739821,
+      0.0014980942942202091,
+      0.0007621765253134072,
+      0.0004875854356214404,
+      0.00034214244806207716,
+      0.0002571200311649591,
+      0.00023844667884986848,
+      0.00018779508536681533,
+      0.00015287088172044605,
+      0.00014333490980789065,
+      0.00012410439376253635,
+      0.00012068727664882317,
+      0.00010173516784561798,
+      8.279688336187974e-05,
+      8.587656338931993e-05,
+      7.865559018682688e-05,
+      6.916240090504289e-05,
+      5.637349022435956e-05,
+      4.99483103340026e-05,
+      5.484683788381517e-05,
+      4.5948345359647647e-05,
+      4.1697108827065676e-05,
+      4.1404688090551645e-05,
+      4.0780563722364604e-05,
+      3.738807208719663e-05,
+      2.9941091270302422e-05,
+      2.8802638553315774e-05,
+      2.8185486371512525e-05,
+      2.3667367713642307e-05,
+      2.2039388568373397e-05,
+      2.0821975340368226e-05,
+      2.3238988433149643e-05,
+      1.754142067511566e-05,
+      1.6467007299070247e-05,
+      1.759611041052267e-05,
+      1.5945002814987674e-05,
+      1.455297115171561e-05,
+      1.5510449884459376e-05,
+      1.4420669685932808e-05,
+      1.0187972293351777e-05,
+      1.0603088412608486e-05,
+      1.0049472621176392e-05,
+      1.0096816367877182e-05,
+      9.768015843292233e-06,
+      9.638383744459134e-06,
+      8.258569323515985e-06,
+      7.926201760710683e-06,
+      7.510389423259767e-06,
+      7.365699730144115e-06,
+      7.0145279096323065e-06,
+      7.07570870872587e-06,
+      6.260308055061614e-06,
+      5.8976693253498524e-06,
+      5.468236849992536e-06,
+      5.312409030011622e-06,
+      5.200617579248501e-06,
+      5.133432296133833e-06,
+      4.509763584792381e-06,
+      4.514497049967758e-06,
+      4.2031470002257265e-06,
+      3.8357434277713764e-06,
+      3.704739356180653e-06,
+      3.4924923966173083e-06,
+      3.4391250665066764e-06,
+      3.2209975415753433e-06,
+      3.0374781090358738e-06,
+      2.7751834750233684e-06,
+      3.103446715613245e-06,
+      2.4062774173216894e-06,
+      2.394274815742392e-06,
+      2.26878091780236e-06,
+      2.302787152075325e-06,
+      2.1182561340538086e-06,
+      1.9911935851268936e-06,
+      1.9773679014178924e-06,
+      1.932558006956242e-06,
+      1.7844469084593584e-06,
+      1.8101320620189654e-06,
+      1.5512828213104513e-06,
+      1.4839325785942492e-06,
+      1.3748891660725349e-06,
+      1.3062865491519915e-06,
+      1.2238690487720305e-06,
+      1.158348936769471e-06,
+      1.198343397845747e-06,
+      1.156307007477153e-06,
+      1.0280488140779198e-06,
+      9.757067118698615e-07,
+      9.436098480364308e-07,
+      9.142719363808283e-07,
+      8.917578497857903e-07,
+      8.741166652725951e-07,
+      7.836777058400912e-07,
+      7.773693369017565e-07,
+      7.101835421963187e-07,
+      6.860385610707453e-07,
+      6.547078896801395e-07
+    ],
+    "train_acc": [
+      92.15263886751808,
+      99.76919526080935,
+      99.96922603477458,
+      99.98461301738729,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+    ],
+    "test_acc": [
+      99.2,
+      99.81538461538462,
+      99.93846153846154,
+      99.93846153846154,
+      99.93846153846154,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+    ]
+  }
+}

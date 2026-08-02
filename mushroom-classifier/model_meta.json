@@ -1,0 +1,1387 @@
+{
+  "input_features": 94,
+  "feature_columns": [
+    "cap-shape_c",
+    "cap-shape_f",
+    "cap-shape_k",
+    "cap-shape_s",
+    "cap-shape_x",
+    "cap-surface_g",
+    "cap-surface_s",
+    "cap-surface_y",
+    "cap-color_c",
+    "cap-color_e",
+    "cap-color_g",
+    "cap-color_n",
+    "cap-color_p",
+    "cap-color_r",
+    "cap-color_u",
+    "cap-color_w",
+    "cap-color_y",
+    "bruises_t",
+    "odor_c",
+    "odor_f",
+    "odor_l",
+    "odor_m",
+    "odor_n",
+    "odor_p",
+    "odor_s",
+    "odor_y",
+    "gill-spacing_w",
+    "gill-size_n",
+    "gill-color_e",
+    "gill-color_g",
+    "gill-color_h",
+    "gill-color_k",
+    "gill-color_n",
+    "gill-color_o",
+    "gill-color_p",
+    "gill-color_r",
+    "gill-color_u",
+    "gill-color_w",
+    "gill-color_y",
+    "stalk-shape_t",
+    "stalk-root_b",
+    "stalk-root_c",
+    "stalk-root_e",
+    "stalk-root_r",
+    "stalk-surface-above-ring_k",
+    "stalk-surface-above-ring_s",
+    "stalk-surface-above-ring_y",
+    "stalk-surface-below-ring_k",
+    "stalk-surface-below-ring_s",
+    "stalk-surface-below-ring_y",
+    "stalk-color-above-ring_c",
+    "stalk-color-above-ring_e",
+    "stalk-color-above-ring_g",
+    "stalk-color-above-ring_n",
+    "stalk-color-above-ring_o",
+    "stalk-color-above-ring_p",
+    "stalk-color-above-ring_w",
+    "stalk-color-above-ring_y",
+    "stalk-color-below-ring_c",
+    "stalk-color-below-ring_e",
+    "stalk-color-below-ring_g",
+    "stalk-color-below-ring_n",
+    "stalk-color-below-ring_o",
+    "stalk-color-below-ring_p",
+    "stalk-color-below-ring_w",
+    "stalk-color-below-ring_y",
+    "veil-color_o",
+    "veil-color_w",
+    "veil-color_y",
+    "ring-number_o",
+    "ring-number_t",
+    "ring-type_f",
+    "ring-type_l",
+    "ring-type_n",
+    "ring-type_p",
+    "spore-print-color_h",
+    "spore-print-color_k",
+    "spore-print-color_n",
+    "spore-print-color_o",
+    "spore-print-color_r",
+    "spore-print-color_u",
+    "spore-print-color_w",
+    "spore-print-color_y",
+    "population_c",
+    "population_n",
+    "population_s",
+    "population_v",
+    "population_y",
+    "habitat_g",
+    "habitat_l",
+    "habitat_m",
+    "habitat_p",
+    "habitat_u",
+    "habitat_w"
+  ],
+  "features": [
+    {
+      "key": "cap-shape",
+      "label": "Şapka Şekli",
+      "icon": "🍄",
+      "dropped": "b",
+      "values": [
+        {
+          "code": "b",
+          "label": "Çan",
+          "count": 452,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "c",
+          "label": "Konik",
+          "count": 4,
+          "swatch": null,
+          "columns": [
+            "cap-shape_c"
+          ]
+        },
+        {
+          "code": "f",
+          "label": "Düz",
+          "count": 3152,
+          "swatch": null,
+          "columns": [
+            "cap-shape_f"
+          ]
+        },
+        {
+          "code": "k",
+          "label": "Tümsekli",
+          "count": 828,
+          "swatch": null,
+          "columns": [
+            "cap-shape_k"
+          ]
+        },
+        {
+          "code": "s",
+          "label": "Çukur",
+          "count": 32,
+          "swatch": null,
+          "columns": [
+            "cap-shape_s"
+          ]
+        },
+        {
+          "code": "x",
+          "label": "Dışbükey",
+          "count": 3656,
+          "swatch": null,
+          "columns": [
+            "cap-shape_x"
+          ]
+        }
+      ],
+      "columns": [
+        "cap-shape_c",
+        "cap-shape_f",
+        "cap-shape_k",
+        "cap-shape_s",
+        "cap-shape_x"
+      ]
+    },
+    {
+      "key": "cap-surface",
+      "label": "Şapka Yüzeyi",
+      "icon": "🪵",
+      "dropped": "f",
+      "values": [
+        {
+          "code": "f",
+          "label": "Lifli",
+          "count": 2320,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "g",
+          "label": "Oluklu",
+          "count": 4,
+          "swatch": null,
+          "columns": [
+            "cap-surface_g"
+          ]
+        },
+        {
+          "code": "s",
+          "label": "Pürüzsüz",
+          "count": 2556,
+          "swatch": null,
+          "columns": [
+            "cap-surface_s"
+          ]
+        },
+        {
+          "code": "y",
+          "label": "Pullu",
+          "count": 3244,
+          "swatch": null,
+          "columns": [
+            "cap-surface_y"
+          ]
+        }
+      ],
+      "columns": [
+        "cap-surface_g",
+        "cap-surface_s",
+        "cap-surface_y"
+      ]
+    },
+    {
+      "key": "cap-color",
+      "label": "Şapka Rengi",
+      "icon": "🎨",
+      "dropped": "b",
+      "values": [
+        {
+          "code": "b",
+          "label": "Devetüyü",
+          "count": 168,
+          "swatch": "#d8c9a3",
+          "columns": []
+        },
+        {
+          "code": "c",
+          "label": "Tarçın",
+          "count": 44,
+          "swatch": "#a0522d",
+          "columns": [
+            "cap-color_c"
+          ]
+        },
+        {
+          "code": "e",
+          "label": "Kırmızı",
+          "count": 1500,
+          "swatch": "#ef4444",
+          "columns": [
+            "cap-color_e"
+          ]
+        },
+        {
+          "code": "g",
+          "label": "Gri",
+          "count": 1840,
+          "swatch": "#9ca3af",
+          "columns": [
+            "cap-color_g"
+          ]
+        },
+        {
+          "code": "n",
+          "label": "Kahverengi",
+          "count": 2284,
+          "swatch": "#8b5a2b",
+          "columns": [
+            "cap-color_n"
+          ]
+        },
+        {
+          "code": "p",
+          "label": "Pembe",
+          "count": 144,
+          "swatch": "#f9a8d4",
+          "columns": [
+            "cap-color_p"
+          ]
+        },
+        {
+          "code": "r",
+          "label": "Yeşil",
+          "count": 16,
+          "swatch": "#4ade80",
+          "columns": [
+            "cap-color_r"
+          ]
+        },
+        {
+          "code": "u",
+          "label": "Mor",
+          "count": 16,
+          "swatch": "#a78bfa",
+          "columns": [
+            "cap-color_u"
+          ]
+        },
+        {
+          "code": "w",
+          "label": "Beyaz",
+          "count": 1040,
+          "swatch": "#f4f4f5",
+          "columns": [
+            "cap-color_w"
+          ]
+        },
+        {
+          "code": "y",
+          "label": "Sarı",
+          "count": 1072,
+          "swatch": "#facc15",
+          "columns": [
+            "cap-color_y"
+          ]
+        }
+      ],
+      "columns": [
+        "cap-color_c",
+        "cap-color_e",
+        "cap-color_g",
+        "cap-color_n",
+        "cap-color_p",
+        "cap-color_r",
+        "cap-color_u",
+        "cap-color_w",
+        "cap-color_y"
+      ]
+    },
+    {
+      "key": "bruises",
+      "label": "Çürük / Morarma",
+      "icon": "🩹",
+      "dropped": "f",
+      "values": [
+        {
+          "code": "f",
+          "label": "Morarmıyor",
+          "count": 4748,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "t",
+          "label": "Morarıyor",
+          "count": 3376,
+          "swatch": null,
+          "columns": [
+            "bruises_t"
+          ]
+        }
+      ],
+      "columns": [
+        "bruises_t"
+      ]
+    },
+    {
+      "key": "odor",
+      "label": "Koku",
+      "icon": "👃",
+      "dropped": "a",
+      "values": [
+        {
+          "code": "a",
+          "label": "Badem",
+          "count": 400,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "c",
+          "label": "Katran",
+          "count": 192,
+          "swatch": null,
+          "columns": [
+            "odor_c"
+          ]
+        },
+        {
+          "code": "f",
+          "label": "Kokuşmuş",
+          "count": 2160,
+          "swatch": null,
+          "columns": [
+            "odor_f"
+          ]
+        },
+        {
+          "code": "l",
+          "label": "Anason",
+          "count": 400,
+          "swatch": null,
+          "columns": [
+            "odor_l"
+          ]
+        },
+        {
+          "code": "m",
+          "label": "Küf",
+          "count": 36,
+          "swatch": null,
+          "columns": [
+            "odor_m"
+          ]
+        },
+        {
+          "code": "n",
+          "label": "Kokusuz",
+          "count": 3528,
+          "swatch": null,
+          "columns": [
+            "odor_n"
+          ]
+        },
+        {
+          "code": "p",
+          "label": "Keskin",
+          "count": 256,
+          "swatch": null,
+          "columns": [
+            "odor_p"
+          ]
+        },
+        {
+          "code": "s",
+          "label": "Baharatlı",
+          "count": 576,
+          "swatch": null,
+          "columns": [
+            "odor_s"
+          ]
+        },
+        {
+          "code": "y",
+          "label": "Balık",
+          "count": 576,
+          "swatch": null,
+          "columns": [
+            "odor_y"
+          ]
+        }
+      ],
+      "columns": [
+        "odor_c",
+        "odor_f",
+        "odor_l",
+        "odor_m",
+        "odor_n",
+        "odor_p",
+        "odor_s",
+        "odor_y"
+      ]
+    },
+    {
+      "key": "gill-spacing",
+      "label": "Lamel Aralığı",
+      "icon": "📏",
+      "dropped": "c",
+      "values": [
+        {
+          "code": "c",
+          "label": "Sık",
+          "count": 6812,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "w",
+          "label": "Çok sık",
+          "count": 1312,
+          "swatch": null,
+          "columns": [
+            "gill-spacing_w"
+          ]
+        }
+      ],
+      "columns": [
+        "gill-spacing_w"
+      ]
+    },
+    {
+      "key": "gill-size",
+      "label": "Lamel Boyutu",
+      "icon": "📐",
+      "dropped": "b",
+      "values": [
+        {
+          "code": "b",
+          "label": "Geniş",
+          "count": 5612,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "n",
+          "label": "Dar",
+          "count": 2512,
+          "swatch": null,
+          "columns": [
+            "gill-size_n"
+          ]
+        }
+      ],
+      "columns": [
+        "gill-size_n"
+      ]
+    },
+    {
+      "key": "gill-color",
+      "label": "Lamel Rengi",
+      "icon": "🌈",
+      "dropped": "b",
+      "values": [
+        {
+          "code": "b",
+          "label": "Devetüyü",
+          "count": 1728,
+          "swatch": "#d8c9a3",
+          "columns": []
+        },
+        {
+          "code": "e",
+          "label": "Kırmızı",
+          "count": 96,
+          "swatch": "#ef4444",
+          "columns": [
+            "gill-color_e"
+          ]
+        },
+        {
+          "code": "g",
+          "label": "Gri",
+          "count": 752,
+          "swatch": "#9ca3af",
+          "columns": [
+            "gill-color_g"
+          ]
+        },
+        {
+          "code": "h",
+          "label": "Çikolata",
+          "count": 732,
+          "swatch": "#5c3a21",
+          "columns": [
+            "gill-color_h"
+          ]
+        },
+        {
+          "code": "k",
+          "label": "Siyah",
+          "count": 408,
+          "swatch": "#27272a",
+          "columns": [
+            "gill-color_k"
+          ]
+        },
+        {
+          "code": "n",
+          "label": "Kahverengi",
+          "count": 1048,
+          "swatch": "#8b5a2b",
+          "columns": [
+            "gill-color_n"
+          ]
+        },
+        {
+          "code": "o",
+          "label": "Turuncu",
+          "count": 64,
+          "swatch": "#fb923c",
+          "columns": [
+            "gill-color_o"
+          ]
+        },
+        {
+          "code": "p",
+          "label": "Pembe",
+          "count": 1492,
+          "swatch": "#f9a8d4",
+          "columns": [
+            "gill-color_p"
+          ]
+        },
+        {
+          "code": "r",
+          "label": "Yeşil",
+          "count": 24,
+          "swatch": "#4ade80",
+          "columns": [
+            "gill-color_r"
+          ]
+        },
+        {
+          "code": "u",
+          "label": "Mor",
+          "count": 492,
+          "swatch": "#a78bfa",
+          "columns": [
+            "gill-color_u"
+          ]
+        },
+        {
+          "code": "w",
+          "label": "Beyaz",
+          "count": 1202,
+          "swatch": "#f4f4f5",
+          "columns": [
+            "gill-color_w"
+          ]
+        },
+        {
+          "code": "y",
+          "label": "Sarı",
+          "count": 86,
+          "swatch": "#facc15",
+          "columns": [
+            "gill-color_y"
+          ]
+        }
+      ],
+      "columns": [
+        "gill-color_e",
+        "gill-color_g",
+        "gill-color_h",
+        "gill-color_k",
+        "gill-color_n",
+        "gill-color_o",
+        "gill-color_p",
+        "gill-color_r",
+        "gill-color_u",
+        "gill-color_w",
+        "gill-color_y"
+      ]
+    },
+    {
+      "key": "stalk-shape",
+      "label": "Sap Şekli",
+      "icon": "🌱",
+      "dropped": "e",
+      "values": [
+        {
+          "code": "e",
+          "label": "Genişleyen",
+          "count": 3516,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "t",
+          "label": "Daralan",
+          "count": 4608,
+          "swatch": null,
+          "columns": [
+            "stalk-shape_t"
+          ]
+        }
+      ],
+      "columns": [
+        "stalk-shape_t"
+      ]
+    },
+    {
+      "key": "stalk-root",
+      "label": "Sap Kökü",
+      "icon": "🌰",
+      "dropped": "?",
+      "values": [
+        {
+          "code": "?",
+          "label": "Bilinmiyor",
+          "count": 2480,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "b",
+          "label": "Soğanlı",
+          "count": 3776,
+          "swatch": null,
+          "columns": [
+            "stalk-root_b"
+          ]
+        },
+        {
+          "code": "c",
+          "label": "Topuzlu",
+          "count": 556,
+          "swatch": null,
+          "columns": [
+            "stalk-root_c"
+          ]
+        },
+        {
+          "code": "e",
+          "label": "Eşit",
+          "count": 1120,
+          "swatch": null,
+          "columns": [
+            "stalk-root_e"
+          ]
+        },
+        {
+          "code": "r",
+          "label": "Köklü",
+          "count": 192,
+          "swatch": null,
+          "columns": [
+            "stalk-root_r"
+          ]
+        }
+      ],
+      "columns": [
+        "stalk-root_b",
+        "stalk-root_c",
+        "stalk-root_e",
+        "stalk-root_r"
+      ]
+    },
+    {
+      "key": "stalk-surface-above-ring",
+      "label": "Sap Yüzeyi (halka üstü)",
+      "icon": "⬆️",
+      "dropped": "f",
+      "values": [
+        {
+          "code": "f",
+          "label": "Lifli",
+          "count": 552,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "k",
+          "label": "İpeksi",
+          "count": 2372,
+          "swatch": null,
+          "columns": [
+            "stalk-surface-above-ring_k"
+          ]
+        },
+        {
+          "code": "s",
+          "label": "Pürüzsüz",
+          "count": 5176,
+          "swatch": null,
+          "columns": [
+            "stalk-surface-above-ring_s"
+          ]
+        },
+        {
+          "code": "y",
+          "label": "Pullu",
+          "count": 24,
+          "swatch": null,
+          "columns": [
+            "stalk-surface-above-ring_y"
+          ]
+        }
+      ],
+      "columns": [
+        "stalk-surface-above-ring_k",
+        "stalk-surface-above-ring_s",
+        "stalk-surface-above-ring_y"
+      ]
+    },
+    {
+      "key": "stalk-surface-below-ring",
+      "label": "Sap Yüzeyi (halka altı)",
+      "icon": "⬇️",
+      "dropped": "f",
+      "values": [
+        {
+          "code": "f",
+          "label": "Lifli",
+          "count": 600,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "k",
+          "label": "İpeksi",
+          "count": 2304,
+          "swatch": null,
+          "columns": [
+            "stalk-surface-below-ring_k"
+          ]
+        },
+        {
+          "code": "s",
+          "label": "Pürüzsüz",
+          "count": 4936,
+          "swatch": null,
+          "columns": [
+            "stalk-surface-below-ring_s"
+          ]
+        },
+        {
+          "code": "y",
+          "label": "Pullu",
+          "count": 284,
+          "swatch": null,
+          "columns": [
+            "stalk-surface-below-ring_y"
+          ]
+        }
+      ],
+      "columns": [
+        "stalk-surface-below-ring_k",
+        "stalk-surface-below-ring_s",
+        "stalk-surface-below-ring_y"
+      ]
+    },
+    {
+      "key": "stalk-color-above-ring",
+      "label": "Sap Rengi (halka üstü)",
+      "icon": "🖌️",
+      "dropped": "b",
+      "values": [
+        {
+          "code": "b",
+          "label": "Devetüyü",
+          "count": 432,
+          "swatch": "#d8c9a3",
+          "columns": []
+        },
+        {
+          "code": "c",
+          "label": "Tarçın",
+          "count": 36,
+          "swatch": "#a0522d",
+          "columns": [
+            "stalk-color-above-ring_c"
+          ]
+        },
+        {
+          "code": "e",
+          "label": "Kırmızı",
+          "count": 96,
+          "swatch": "#ef4444",
+          "columns": [
+            "stalk-color-above-ring_e"
+          ]
+        },
+        {
+          "code": "g",
+          "label": "Gri",
+          "count": 576,
+          "swatch": "#9ca3af",
+          "columns": [
+            "stalk-color-above-ring_g"
+          ]
+        },
+        {
+          "code": "n",
+          "label": "Kahverengi",
+          "count": 448,
+          "swatch": "#8b5a2b",
+          "columns": [
+            "stalk-color-above-ring_n"
+          ]
+        },
+        {
+          "code": "o",
+          "label": "Turuncu",
+          "count": 192,
+          "swatch": "#fb923c",
+          "columns": [
+            "stalk-color-above-ring_o"
+          ]
+        },
+        {
+          "code": "p",
+          "label": "Pembe",
+          "count": 1872,
+          "swatch": "#f9a8d4",
+          "columns": [
+            "stalk-color-above-ring_p"
+          ]
+        },
+        {
+          "code": "w",
+          "label": "Beyaz",
+          "count": 4464,
+          "swatch": "#f4f4f5",
+          "columns": [
+            "stalk-color-above-ring_w"
+          ]
+        },
+        {
+          "code": "y",
+          "label": "Sarı",
+          "count": 8,
+          "swatch": "#facc15",
+          "columns": [
+            "stalk-color-above-ring_y"
+          ]
+        }
+      ],
+      "columns": [
+        "stalk-color-above-ring_c",
+        "stalk-color-above-ring_e",
+        "stalk-color-above-ring_g",
+        "stalk-color-above-ring_n",
+        "stalk-color-above-ring_o",
+        "stalk-color-above-ring_p",
+        "stalk-color-above-ring_w",
+        "stalk-color-above-ring_y"
+      ]
+    },
+    {
+      "key": "stalk-color-below-ring",
+      "label": "Sap Rengi (halka altı)",
+      "icon": "🖍️",
+      "dropped": "b",
+      "values": [
+        {
+          "code": "b",
+          "label": "Devetüyü",
+          "count": 432,
+          "swatch": "#d8c9a3",
+          "columns": []
+        },
+        {
+          "code": "c",
+          "label": "Tarçın",
+          "count": 36,
+          "swatch": "#a0522d",
+          "columns": [
+            "stalk-color-below-ring_c"
+          ]
+        },
+        {
+          "code": "e",
+          "label": "Kırmızı",
+          "count": 96,
+          "swatch": "#ef4444",
+          "columns": [
+            "stalk-color-below-ring_e"
+          ]
+        },
+        {
+          "code": "g",
+          "label": "Gri",
+          "count": 576,
+          "swatch": "#9ca3af",
+          "columns": [
+            "stalk-color-below-ring_g"
+          ]
+        },
+        {
+          "code": "n",
+          "label": "Kahverengi",
+          "count": 512,
+          "swatch": "#8b5a2b",
+          "columns": [
+            "stalk-color-below-ring_n"
+          ]
+        },
+        {
+          "code": "o",
+          "label": "Turuncu",
+          "count": 192,
+          "swatch": "#fb923c",
+          "columns": [
+            "stalk-color-below-ring_o"
+          ]
+        },
+        {
+          "code": "p",
+          "label": "Pembe",
+          "count": 1872,
+          "swatch": "#f9a8d4",
+          "columns": [
+            "stalk-color-below-ring_p"
+          ]
+        },
+        {
+          "code": "w",
+          "label": "Beyaz",
+          "count": 4384,
+          "swatch": "#f4f4f5",
+          "columns": [
+            "stalk-color-below-ring_w"
+          ]
+        },
+        {
+          "code": "y",
+          "label": "Sarı",
+          "count": 24,
+          "swatch": "#facc15",
+          "columns": [
+            "stalk-color-below-ring_y"
+          ]
+        }
+      ],
+      "columns": [
+        "stalk-color-below-ring_c",
+        "stalk-color-below-ring_e",
+        "stalk-color-below-ring_g",
+        "stalk-color-below-ring_n",
+        "stalk-color-below-ring_o",
+        "stalk-color-below-ring_p",
+        "stalk-color-below-ring_w",
+        "stalk-color-below-ring_y"
+      ]
+    },
+    {
+      "key": "veil-color",
+      "label": "Zar Rengi",
+      "icon": "🎭",
+      "dropped": "n",
+      "values": [
+        {
+          "code": "n",
+          "label": "Kahverengi",
+          "count": 96,
+          "swatch": "#8b5a2b",
+          "columns": []
+        },
+        {
+          "code": "o",
+          "label": "Turuncu",
+          "count": 96,
+          "swatch": "#fb923c",
+          "columns": [
+            "veil-color_o"
+          ]
+        },
+        {
+          "code": "w",
+          "label": "Beyaz",
+          "count": 7924,
+          "swatch": "#f4f4f5",
+          "columns": [
+            "veil-color_w"
+          ]
+        },
+        {
+          "code": "y",
+          "label": "Sarı",
+          "count": 8,
+          "swatch": "#facc15",
+          "columns": [
+            "veil-color_y"
+          ]
+        }
+      ],
+      "columns": [
+        "veil-color_o",
+        "veil-color_w",
+        "veil-color_y"
+      ]
+    },
+    {
+      "key": "ring-number",
+      "label": "Halka Sayısı",
+      "icon": "💍",
+      "dropped": "n",
+      "values": [
+        {
+          "code": "n",
+          "label": "Yok",
+          "count": 36,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "o",
+          "label": "Bir",
+          "count": 7488,
+          "swatch": null,
+          "columns": [
+            "ring-number_o"
+          ]
+        },
+        {
+          "code": "t",
+          "label": "İki",
+          "count": 600,
+          "swatch": null,
+          "columns": [
+            "ring-number_t"
+          ]
+        }
+      ],
+      "columns": [
+        "ring-number_o",
+        "ring-number_t"
+      ]
+    },
+    {
+      "key": "ring-type",
+      "label": "Halka Tipi",
+      "icon": "⭕",
+      "dropped": "e",
+      "values": [
+        {
+          "code": "e",
+          "label": "Geçici",
+          "count": 2776,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "f",
+          "label": "Yayvan",
+          "count": 48,
+          "swatch": null,
+          "columns": [
+            "ring-type_f"
+          ]
+        },
+        {
+          "code": "l",
+          "label": "Büyük",
+          "count": 1296,
+          "swatch": null,
+          "columns": [
+            "ring-type_l"
+          ]
+        },
+        {
+          "code": "n",
+          "label": "Yok",
+          "count": 36,
+          "swatch": null,
+          "columns": [
+            "ring-type_n"
+          ]
+        },
+        {
+          "code": "p",
+          "label": "Sarkık",
+          "count": 3968,
+          "swatch": null,
+          "columns": [
+            "ring-type_p"
+          ]
+        }
+      ],
+      "columns": [
+        "ring-type_f",
+        "ring-type_l",
+        "ring-type_n",
+        "ring-type_p"
+      ]
+    },
+    {
+      "key": "spore-print-color",
+      "label": "Spor İzi Rengi",
+      "icon": "✨",
+      "dropped": "b",
+      "values": [
+        {
+          "code": "b",
+          "label": "Devetüyü",
+          "count": 48,
+          "swatch": "#d8c9a3",
+          "columns": []
+        },
+        {
+          "code": "h",
+          "label": "Çikolata",
+          "count": 1632,
+          "swatch": "#5c3a21",
+          "columns": [
+            "spore-print-color_h"
+          ]
+        },
+        {
+          "code": "k",
+          "label": "Siyah",
+          "count": 1872,
+          "swatch": "#27272a",
+          "columns": [
+            "spore-print-color_k"
+          ]
+        },
+        {
+          "code": "n",
+          "label": "Kahverengi",
+          "count": 1968,
+          "swatch": "#8b5a2b",
+          "columns": [
+            "spore-print-color_n"
+          ]
+        },
+        {
+          "code": "o",
+          "label": "Turuncu",
+          "count": 48,
+          "swatch": "#fb923c",
+          "columns": [
+            "spore-print-color_o"
+          ]
+        },
+        {
+          "code": "r",
+          "label": "Yeşil",
+          "count": 72,
+          "swatch": "#4ade80",
+          "columns": [
+            "spore-print-color_r"
+          ]
+        },
+        {
+          "code": "u",
+          "label": "Mor",
+          "count": 48,
+          "swatch": "#a78bfa",
+          "columns": [
+            "spore-print-color_u"
+          ]
+        },
+        {
+          "code": "w",
+          "label": "Beyaz",
+          "count": 2388,
+          "swatch": "#f4f4f5",
+          "columns": [
+            "spore-print-color_w"
+          ]
+        },
+        {
+          "code": "y",
+          "label": "Sarı",
+          "count": 48,
+          "swatch": "#facc15",
+          "columns": [
+            "spore-print-color_y"
+          ]
+        }
+      ],
+      "columns": [
+        "spore-print-color_h",
+        "spore-print-color_k",
+        "spore-print-color_n",
+        "spore-print-color_o",
+        "spore-print-color_r",
+        "spore-print-color_u",
+        "spore-print-color_w",
+        "spore-print-color_y"
+      ]
+    },
+    {
+      "key": "population",
+      "label": "Topluluk",
+      "icon": "👥",
+      "dropped": "a",
+      "values": [
+        {
+          "code": "a",
+          "label": "Bol",
+          "count": 384,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "c",
+          "label": "Kümeli",
+          "count": 340,
+          "swatch": null,
+          "columns": [
+            "population_c"
+          ]
+        },
+        {
+          "code": "n",
+          "label": "Çok sayıda",
+          "count": 400,
+          "swatch": null,
+          "columns": [
+            "population_n"
+          ]
+        },
+        {
+          "code": "s",
+          "label": "Dağınık",
+          "count": 1248,
+          "swatch": null,
+          "columns": [
+            "population_s"
+          ]
+        },
+        {
+          "code": "v",
+          "label": "Birkaç",
+          "count": 4040,
+          "swatch": null,
+          "columns": [
+            "population_v"
+          ]
+        },
+        {
+          "code": "y",
+          "label": "Tek başına",
+          "count": 1712,
+          "swatch": null,
+          "columns": [
+            "population_y"
+          ]
+        }
+      ],
+      "columns": [
+        "population_c",
+        "population_n",
+        "population_s",
+        "population_v",
+        "population_y"
+      ]
+    },
+    {
+      "key": "habitat",
+      "label": "Yaşam Alanı",
+      "icon": "🌍",
+      "dropped": "d",
+      "values": [
+        {
+          "code": "d",
+          "label": "Orman",
+          "count": 3148,
+          "swatch": null,
+          "columns": []
+        },
+        {
+          "code": "g",
+          "label": "Çayır",
+          "count": 2148,
+          "swatch": null,
+          "columns": [
+            "habitat_g"
+          ]
+        },
+        {
+          "code": "l",
+          "label": "Yaprak",
+          "count": 832,
+          "swatch": null,
+          "columns": [
+            "habitat_l"
+          ]
+        },
+        {
+          "code": "m",
+          "label": "Otlak",
+          "count": 292,
+          "swatch": null,
+          "columns": [
+            "habitat_m"
+          ]
+        },
+        {
+          "code": "p",
+          "label": "Patika",
+          "count": 1144,
+          "swatch": null,
+          "columns": [
+            "habitat_p"
+          ]
+        },
+        {
+          "code": "u",
+          "label": "Şehir",
+          "count": 368,
+          "swatch": null,
+          "columns": [
+            "habitat_u"
+          ]
+        },
+        {
+          "code": "w",
+          "label": "Atık",
+          "count": 192,
+          "swatch": null,
+          "columns": [
+            "habitat_w"
+          ]
+        }
+      ],
+      "columns": [
+        "habitat_g",
+        "habitat_l",
+        "habitat_m",
+        "habitat_p",
+        "habitat_u",
+        "habitat_w"
+      ]
+    }
+  ],
+  "dropped_from_dataset": [
+    "veil-type",
+    "gill-attachment"
+  ],
+  "architecture": "MushroomANN(\n  (linear_model_stack): Sequential(\n    (0): Linear(in_features=94, out_features=64, bias=True)\n    (1): ReLU()\n    (2): Linear(in_features=64, out_features=64, bias=True)\n    (3): ReLU()\n    (4): Linear(in_features=64, out_features=1, bias=True)\n    (5): Sigmoid()\n  )\n)",
+  "n_params": 10305
+}

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mantar Dedektifi — Zehirli mi, Yenilebilir mi?</title>
+<meta name="description" content="PyTorch yapay sinir ağı ile mantar zehirlilik tahmini. Bildiğin kadar özelliği gir, model kalan belirsizliği senin için hesaplasın." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍄</text></svg>" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+
+:root{
+  --bg:#0a0f0c; --bg-2:#0f1512; --panel:#131b16; --panel-2:#18211b;
+  --border:#25322a; --border-2:#33443a;
+  --text:#eaf0e9; --muted:#93a596; --muted-2:#6d8074;
+  --amber:#e8b25f; --amber-2:#f7d49a;
+  --green:#5fd67f; --green-glow:rgba(95,214,127,.18);
+  --red:#ff6b5e; --red-glow:rgba(255,107,94,.18);
+  --purple:#b58bf0;
+  --r:18px; --r-sm:11px; --r-xs:8px;
+  --shadow:0 18px 50px -22px rgba(0,0,0,.9);
+  --maxw:1240px;
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:'Inter',system-ui,sans-serif; line-height:1.55;
+  overflow-x:hidden; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(680px 420px at 12% -5%, rgba(232,178,95,.13), transparent 65%),
+    radial-gradient(620px 460px at 92% 8%, rgba(95,214,127,.10), transparent 62%),
+    radial-gradient(700px 500px at 50% 108%, rgba(181,139,240,.08), transparent 60%);
+}
+h1,h2,h3,.display{font-family:'Fraunces',Georgia,serif;font-weight:700;line-height:1.12;letter-spacing:-.01em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;position:relative;z-index:1}
+a{color:inherit}
+
+/* ── spores ─────────────────────────────────────────────── */
+#spores{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.spore{position:absolute;border-radius:50%;background:var(--amber);opacity:.16;
+  animation:drift linear infinite}
+@keyframes drift{
+  0%{transform:translate3d(0,110vh,0) scale(.6);opacity:0}
+  10%{opacity:.22}
+  90%{opacity:.14}
+  100%{transform:translate3d(40px,-12vh,0) scale(1.1);opacity:0}
+}
+
+/* ── hero ───────────────────────────────────────────────── */
+.hero{padding:76px 0 44px;text-align:center;position:relative;z-index:1}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--amber);
+  border:1px solid rgba(232,178,95,.28);background:rgba(232,178,95,.07);
+  padding:7px 15px;border-radius:999px;margin-bottom:26px;
+}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--amber);
+  box-shadow:0 0 0 0 rgba(232,178,95,.6);animation:ping 2.4s ease-out infinite}
+@keyframes ping{70%{box-shadow:0 0 0 11px rgba(232,178,95,0)}100%{box-shadow:0 0 0 0 rgba(232,178,95,0)}}
+.hero h1{font-size:clamp(2.5rem,6.2vw,4.5rem);margin-bottom:20px}
+.hero h1 em{font-style:normal;background:linear-gradient(105deg,var(--green) 8%,var(--amber) 52%,var(--red) 96%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{max-width:640px;margin:0 auto;color:var(--muted);font-size:clamp(1rem,1.7vw,1.15rem)}
+.hero-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:34px}
+.hero-stat{background:rgba(19,27,22,.7);border:1px solid var(--border);border-radius:999px;
+  padding:9px 18px;font-size:13.5px;color:var(--muted);backdrop-filter:blur(8px)}
+.hero-stat b{color:var(--text);font-weight:700}
+.scroll-cue{margin-top:52px;color:var(--muted-2);font-size:12.5px;letter-spacing:.14em;
+  text-transform:uppercase;display:inline-flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-cue span.arrow{animation:bob 1.9s ease-in-out infinite;font-size:17px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ── layout ─────────────────────────────────────────────── */
+.lab{padding:26px 0 90px}
+.lab-grid{display:grid;grid-template-columns:392px 1fr;gap:26px;align-items:start}
+@media(max-width:1040px){.lab-grid{grid-template-columns:1fr}}
+
+/* ── verdict card ───────────────────────────────────────── */
+.verdict-col{position:sticky;top:22px}
+@media(max-width:1040px){.verdict-col{position:static}}
+.card{background:linear-gradient(168deg,var(--panel),var(--bg-2));
+  border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)}
+.verdict{padding:24px 22px 22px;overflow:hidden;position:relative;transition:border-color .5s}
+.verdict::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .6s;
+  background:radial-gradient(320px 200px at 50% 0%,var(--glow,transparent),transparent 70%)}
+.verdict.lit::after{opacity:1}
+.verdict-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.verdict-head .tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);font-weight:700}
+.chip-live{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted-2);
+  border:1px solid var(--border);padding:4px 9px;border-radius:999px}
+.chip-live i{width:6px;height:6px;border-radius:50%;background:var(--green);display:block;font-style:normal}
+.scanning .chip-live i{background:var(--amber);animation:blink .6s steps(2) infinite}
+@keyframes blink{50%{opacity:.25}}
+
+.gauge{position:relative;display:flex;justify-content:center;margin:2px 0 4px}
+.gauge svg{width:262px;height:262px;overflow:visible}
+.ring-track{fill:none;stroke:#1d2721;stroke-width:9;stroke-linecap:round}
+.ring-fill{fill:none;stroke:var(--vc,var(--amber));stroke-width:9;stroke-linecap:round;
+  transition:stroke-dashoffset .75s cubic-bezier(.22,1,.36,1),stroke .5s;
+  filter:drop-shadow(0 0 10px var(--vc,var(--amber)))}
+.scanning .ring-fill{animation:hum 1s ease-in-out infinite}
+@keyframes hum{50%{opacity:.45}}
+
+/* mushroom mascot */
+#cap{fill:url(#capGrad);transition:opacity .4s}
+.mush-spot{fill:rgba(255,255,255,.82)}
+.mush-stem{fill:#efe6d3}
+.mush-gill{fill:#c9b9a0;opacity:.55}
+.mush-ring{fill:#e2d5bd}
+#mascot{transform-origin:130px 190px;animation:sway 5.5s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg)}}
+.scanning #mascot{animation:jiggle .38s ease-in-out infinite}
+@keyframes jiggle{0%,100%{transform:rotate(-2.6deg)}50%{transform:rotate(2.6deg)}}
+.face-line{stroke:#3c332a;stroke-width:3.4;stroke-linecap:round;fill:none}
+.blush{fill:var(--red);opacity:.22}
+
+.verdict-word{text-align:center;font-family:'Fraunces',serif;font-weight:700;
+  font-size:clamp(1.9rem,4vw,2.5rem);letter-spacing:-.02em;margin-top:-6px;color:var(--vc,var(--amber));
+  transition:color .5s}
+.verdict-sub{text-align:center;color:var(--muted);font-size:14.5px;margin-top:7px;
+  padding:0 6px;min-height:42px}
+.verdict-sub b{color:var(--text)}
+.pct-big{font-variant-numeric:tabular-nums}
+
+.meterbar{height:7px;border-radius:99px;background:#1d2721;overflow:hidden;margin:16px 0 8px;display:flex}
+.meterbar i{display:block;height:100%;transition:width .6s cubic-bezier(.22,1,.36,1)}
+.meterbar i.e{background:linear-gradient(90deg,#3f9a58,var(--green))}
+.meterbar i.p{background:linear-gradient(90deg,var(--red),#ff9c92)}
+.meter-legend{display:flex;justify-content:space-between;font-size:12px;color:var(--muted-2)}
+.meter-legend b{font-variant-numeric:tabular-nums}
+.meter-legend .le{color:var(--green)} .meter-legend .lp{color:var(--red)}
+
+.progress-row{display:flex;align-items:center;gap:10px;margin:18px 0 4px;font-size:12.5px;color:var(--muted)}
+.progress-track{flex:1;height:5px;background:#1d2721;border-radius:99px;overflow:hidden}
+.progress-track i{display:block;height:100%;background:var(--amber);transition:width .5s}
+
+.vsection{border-top:1px solid var(--border);margin-top:18px;padding-top:15px}
+.vsection h4{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--muted-2);font-weight:700;margin-bottom:11px}
+.contrib{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:13.5px}
+.contrib .ci{font-size:15px;width:20px;text-align:center}
+.contrib .cl{flex:1;min-width:0;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.contrib .cl b{color:var(--text);font-weight:600}
+.delta{font-variant-numeric:tabular-nums;font-weight:700;font-size:12.5px;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.delta.up{color:var(--red);background:rgba(255,107,94,.12)}
+.delta.down{color:var(--green);background:rgba(95,214,127,.12)}
+.delta.flat{color:var(--muted-2);background:rgba(147,165,150,.1)}
+
+.ask{display:flex;flex-wrap:wrap;gap:8px}
+.ask button{background:rgba(232,178,95,.08);border:1px solid rgba(232,178,95,.3);color:var(--amber-2);
+  font:600 12.5px/1 'Inter',sans-serif;padding:8px 12px;border-radius:999px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;transition:.18s}
+.ask button:hover{background:rgba(232,178,95,.17);transform:translateY(-1px)}
+
+/* ── form column ────────────────────────────────────────── */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+.toolbar h2{font-size:1.35rem;margin-right:auto}
+.toolbar h2 small{display:block;font:400 13px/1.4 'Inter',sans-serif;color:var(--muted);margin-top:4px}
+.btn{background:var(--panel-2);border:1px solid var(--border-2);color:var(--text);
+  font:600 13px/1 'Inter',sans-serif;padding:10px 14px;border-radius:var(--r-sm);cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;transition:.18s;white-space:nowrap}
+.btn:hover{border-color:var(--amber);color:var(--amber-2);transform:translateY(-1px)}
+.btn.ghost{background:transparent}
+
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(316px,1fr));gap:14px}
+.feat{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-sm);
+  padding:14px 15px 13px;transition:border-color .25s,box-shadow .25s,transform .25s}
+.feat:hover{border-color:var(--border-2)}
+.feat.filled{border-color:rgba(232,178,95,.45);box-shadow:0 0 0 1px rgba(232,178,95,.12) inset}
+.feat.flash{animation:flash 1.5s ease-out}
+@keyframes flash{0%{box-shadow:0 0 0 0 rgba(232,178,95,.55);transform:scale(1.015)}
+  100%{box-shadow:0 0 0 16px rgba(232,178,95,0);transform:scale(1)}}
+.feat-head{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.feat-head .ico{font-size:17px}
+.feat-head .nm{font-weight:600;font-size:14.5px;flex:1}
+.imp{display:flex;gap:2.5px;align-items:center}
+.imp i{width:4px;height:11px;border-radius:2px;background:#26332b;display:block}
+.imp i.on{background:var(--amber)}
+.feat-head .clr{background:none;border:0;color:var(--muted-2);cursor:pointer;font-size:15px;
+  line-height:1;padding:2px 4px;border-radius:6px;opacity:0;transition:.18s}
+.feat.filled .feat-head .clr{opacity:1}
+.feat-head .clr:hover{color:var(--red);background:rgba(255,107,94,.1)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#182018;border:1px solid var(--border);color:var(--muted);
+  font:500 12.5px/1 'Inter',sans-serif;padding:7px 10px;border-radius:999px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;transition:.15s}
+.chip:hover{border-color:var(--border-2);color:var(--text);transform:translateY(-1px)}
+.chip.on{background:rgba(232,178,95,.15);border-color:var(--amber);color:var(--amber-2);font-weight:600}
+.chip .dot{width:9px;height:9px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.18) inset;flex:none}
+.more-wrap{margin-top:16px;text-align:center}
+
+/* ── insights ───────────────────────────────────────────── */
+.insights{padding:20px 0 40px;border-top:1px solid var(--border)}
+.sec-head{text-align:center;max-width:720px;margin:0 auto 44px}
+.sec-head .kicker{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:700}
+.sec-head h2{font-size:clamp(2rem,4.4vw,3rem);margin:14px 0 14px}
+.sec-head p{color:var(--muted);font-size:1.02rem}
+
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:78px}
+.stat{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:24px 20px;text-align:center}
+.stat .n{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(2.1rem,4.3vw,2.9rem);
+  font-variant-numeric:tabular-nums;line-height:1}
+.stat .n.g{color:var(--green)} .stat .n.r{color:var(--red)} .stat .n.a{color:var(--amber)} .stat .n.p{color:var(--purple)}
+.stat .l{color:var(--muted);font-size:13px;margin-top:9px}
+
+.story{margin-bottom:86px}
+.story-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;flex-wrap:wrap}
+.story-num{font-family:'Fraunces',serif;font-size:13px;font-weight:700;color:var(--amber);
+  border:1px solid rgba(232,178,95,.32);border-radius:999px;padding:4px 11px;letter-spacing:.1em}
+.story h3{font-size:clamp(1.5rem,3vw,2.1rem)}
+.story .say{color:var(--muted);max-width:760px;margin:12px 0 24px;font-size:1.02rem}
+.story .say b{color:var(--text);font-weight:600}
+.story .say .hl{color:var(--amber-2);font-weight:600}
+
+.figure{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);
+  padding:14px;overflow:hidden}
+.figure img{width:100%;height:auto;display:block;border-radius:12px}
+.figure figcaption{color:var(--muted-2);font-size:12.5px;padding:12px 6px 3px;text-align:center}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:900px){.two{grid-template-columns:1fr}}
+
+.factstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:13px;margin-top:20px}
+.fact{background:linear-gradient(160deg,var(--panel),var(--bg-2));border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:17px 18px}
+.fact .big{font-family:'Fraunces',serif;font-size:1.65rem;font-weight:700;color:var(--amber);line-height:1.1}
+.fact p{font-size:13.2px;color:var(--muted);margin-top:7px}
+
+.rules{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:12px}
+.rule{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-sm);
+  padding:15px 16px;display:flex;gap:12px;align-items:flex-start;transition:.2s}
+.rule:hover{transform:translateY(-2px);border-color:var(--border-2)}
+.rule.p{border-left:3px solid var(--red)} .rule.e{border-left:3px solid var(--green)}
+.rule .ri{font-size:19px;line-height:1}
+.rule .rt{font-size:13.4px;color:var(--muted)}
+.rule .rt b{color:var(--text);display:block;font-size:14.4px;font-weight:600;margin-bottom:3px}
+.rule .verdict-mini{font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-top:7px;display:block}
+.rule.p .verdict-mini{color:var(--red)} .rule.e .verdict-mini{color:var(--green)}
+
+/* explorer */
+.explorer{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.exp-tabs{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+.exp-tabs button{background:#182018;border:1px solid var(--border);color:var(--muted);
+  font:500 12.5px/1 'Inter',sans-serif;padding:8px 12px;border-radius:999px;cursor:pointer;transition:.15s}
+.exp-tabs button:hover{color:var(--text);border-color:var(--border-2)}
+.exp-tabs button.on{background:rgba(232,178,95,.15);border-color:var(--amber);color:var(--amber-2);font-weight:600}
+.exp-row{display:grid;grid-template-columns:132px 1fr 118px;gap:12px;align-items:center;padding:6px 0;font-size:13px}
+@media(max-width:620px){.exp-row{grid-template-columns:96px 1fr 96px;font-size:12px}}
+.exp-row .en{color:var(--muted);display:flex;align-items:center;gap:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.exp-row .en .dot{width:9px;height:9px;border-radius:50%;flex:none;box-shadow:0 0 0 1px rgba(255,255,255,.18) inset}
+.exp-bar{height:22px;background:#1a231d;border-radius:6px;overflow:hidden;display:flex}
+.exp-bar i{height:100%;transition:width 1s cubic-bezier(.22,1,.36,1)}
+.exp-bar i.e{background:linear-gradient(90deg,#3d8f52,var(--green))}
+.exp-bar i.p{background:linear-gradient(90deg,var(--red),#ff9e94)}
+.exp-row .ev{text-align:right;color:var(--muted-2);font-variant-numeric:tabular-nums;font-size:12px}
+.exp-row .ev b{color:var(--text)}
+
+.archi{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:18px}
+.acell{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-sm);padding:15px}
+.acell .k{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted-2);font-weight:700}
+.acell .v{font-size:15px;font-weight:600;margin-top:6px}
+.acell .v.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.6px;color:var(--amber-2)}
+
+footer{border-top:1px solid var(--border);padding:40px 0 60px;color:var(--muted-2);font-size:13px}
+.warn{background:rgba(255,107,94,.07);border:1px solid rgba(255,107,94,.25);border-radius:var(--r-sm);
+  padding:16px 18px;color:#ffb3ab;font-size:13.4px;margin-bottom:26px}
+.warn b{color:var(--red)}
+.footrow{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div id="spores"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="pulse-dot"></span> PyTorch Yapay Sinir Ağı</div>
+    <h1>Bu mantar <em>zehirli mi?</em></h1>
+    <p class="lead">
+      20 özellikten <b>kaç tanesini bilirsen bil</b> — gerisini modele bırak.
+      Eksik bilgiyi tahmin etmiyoruz: bildiğin tarife uyan gerçek mantarların hepsini
+      sinir ağına sorup ortalamasını alıyoruz. Az bilgi verirsen sonucu dürüstçe
+      &ldquo;%51 eminiz&rdquo; diye söyleriz.
+    </p>
+    <div class="hero-stats" id="heroStats"></div>
+    <div class="scroll-cue"><span>Teşhise Başla</span><span class="arrow">↓</span></div>
+  </div>
+</header>
+
+<main>
+<section class="lab wrap" id="test">
+  <div class="lab-grid">
+
+    <!-- ── verdict ─────────────────────────────────────── -->
+    <aside class="verdict-col">
+      <div class="card verdict" id="verdict">
+        <div class="verdict-head">
+          <span class="tag">Teşhis</span>
+          <span class="chip-live"><i></i><span id="liveLabel">canlı</span></span>
+        </div>
+
+        <div class="gauge">
+          <svg viewBox="0 0 260 260" aria-hidden="true">
+            <defs>
+              <linearGradient id="capGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"  id="capA" stop-color="#e8b25f"/>
+                <stop offset="100%" id="capB" stop-color="#b8823a"/>
+              </linearGradient>
+            </defs>
+            <circle class="ring-track" cx="130" cy="130" r="120"/>
+            <circle class="ring-fill" id="ring" cx="130" cy="130" r="120"
+                    transform="rotate(-90 130 130)" stroke-dasharray="753.98" stroke-dashoffset="753.98"/>
+            <g id="mascot" transform="translate(30 26) scale(1)">
+              <path id="cap" d="M6 100 Q6 16 100 16 Q194 16 194 100 Q194 114 176 114 L24 114 Q6 114 6 100 Z"/>
+              <ellipse class="mush-spot" cx="58" cy="62" rx="14" ry="11"/>
+              <ellipse class="mush-spot" cx="124" cy="46" rx="17" ry="13"/>
+              <ellipse class="mush-spot" cx="152" cy="84" rx="10" ry="8"/>
+              <ellipse class="mush-spot" cx="34" cy="92" rx="8" ry="6"/>
+              <path class="mush-gill" d="M24 114 L176 114 Q176 124 160 124 L40 124 Q24 124 24 114 Z"/>
+              <path class="mush-stem" d="M72 120 L128 120 L128 158 Q128 182 100 182 Q72 182 72 158 Z"/>
+              <ellipse class="mush-ring" cx="100" cy="134" rx="30" ry="7"/>
+              <g id="face">
+                <circle class="fe" cx="87" cy="152" r="4.2" fill="#3c332a"/>
+                <circle class="fe" cx="113" cy="152" r="4.2" fill="#3c332a"/>
+                <path class="face-line" d="M92 166 q8 6 16 0"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="verdict-word" id="vWord">Bekleniyor</div>
+        <div class="verdict-sub" id="vSub">Soldaki karttan bildiğin özellikleri seç — tek bir tanesi bile yeter.</div>
+
+        <div class="meterbar"><i class="e" id="barE" style="width:52%"></i><i class="p" id="barP" style="width:48%"></i></div>
+        <div class="meter-legend">
+          <span class="le">Yenilebilir <b id="pctE">%51.8</b></span>
+          <span class="lp"><b id="pctP">%48.2</b> Zehirli</span>
+        </div>
+
+        <div class="progress-row">
+          <span id="progLabel">0 / 20 özellik</span>
+          <span class="progress-track"><i id="progBar" style="width:0%"></i></span>
+        </div>
+
+        <div class="vsection" id="contribWrap" hidden>
+          <h4>Sonucu ne değiştirdi?</h4>
+          <div id="contribs"></div>
+        </div>
+
+        <div class="vsection" id="askWrap" hidden>
+          <h4>Emin olmak için şunu sor</h4>
+          <div class="ask" id="askList"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── form ────────────────────────────────────────── -->
+    <div class="form-col">
+      <div class="toolbar">
+        <h2>Mantarını Tarif Et
+          <small>Özellikler, zehri ele verme gücüne göre sıralandı. Bilmediğini boş bırak.</small>
+        </h2>
+        <button class="btn" id="btnRandom">🎲 Rastgele ipuçları</button>
+        <button class="btn" id="btnFull">🍄 Tam mantar</button>
+        <button class="btn ghost" id="btnClear">Temizle</button>
+      </div>
+      <div class="feat-grid" id="featTop"></div>
+      <div class="more-wrap"><button class="btn ghost" id="btnMore">Diğer özellikleri göster ↓</button></div>
+      <div class="feat-grid" id="featRest" hidden style="margin-top:14px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── insights ──────────────────────────────────────────── -->
+<section class="insights wrap" id="insights">
+  <div class="sec-head reveal">
+    <div class="kicker">Mantar Bilgi Bankası</div>
+    <h2>Peki model neye bakıyor?</h2>
+    <p>8.124 mantarın 22 özelliği incelendiğinde ortaya çıkan gerçekler — hepsi
+       aşağıdaki grafiklerde, hepsi aynı veri setinden hesaplandı.</p>
+  </div>
+
+  <div class="statgrid reveal" id="statGrid"></div>
+
+  <!-- 1: odor -->
+  <div class="story reveal">
+    <div class="story-head"><span class="story-num">01</span><h3>Kokusunu al, işin yarısı bitti</h3></div>
+    <p class="say" id="say1"></p>
+    <figure class="figure">
+      <img src="/static/assets/odor-impact.png" alt="Kokuya göre yenilebilir/zehirli dağılımı" loading="lazy"/>
+      <figcaption>Kokuya göre dağılım — yeşil yenilebilir, kırmızı zehirli.</figcaption>
+    </figure>
+    <div class="factstrip" id="odorFacts"></div>
+  </div>
+
+  <!-- 2: rules -->
+  <div class="story reveal">
+    <div class="story-head"><span class="story-num">02</span><h3>Tek başına yeten ipuçları</h3></div>
+    <p class="say">Bazı özellikler o kadar keskin ki, veri setinde <b>tek bir istisna bile yok</b>.
+       Aşağıdaki her kart, o özelliği taşıyan yüzlerce mantarın <span class="hl">istisnasız hepsinin</span>
+       aynı sınıfa düştüğü anlamına geliyor. Testte bunlardan birini seçtiğin an güven oranın anında %100'e fırlar.</p>
+    <div class="rules" id="ruleGrid"></div>
+  </div>
+
+  <!-- 3: importance -->
+  <div class="story reveal">
+    <div class="story-head"><span class="story-num">03</span><h3>Özelliklerin güç sıralaması</h3></div>
+    <p class="say" id="say3"></p>
+    <figure class="figure">
+      <img src="/static/assets/feature-importance.png" alt="Cramér's V ile özellik önem sıralaması" loading="lazy"/>
+      <figcaption>Cramér's V — kategorik değişkenler arası bağın gücü (0 ilgisiz, 1 mükemmel).</figcaption>
+    </figure>
+  </div>
+
+  <!-- 4: explorer -->
+  <div class="story reveal">
+    <div class="story-head"><span class="story-num">04</span><h3>Veriyi kendin kurcala</h3></div>
+    <p class="say">Bir özellik seç; o özelliğin her değerinde kaç mantarın zehirli çıktığını gör.
+       Testteki tahminler de tam olarak bu oranlardan besleniyor.</p>
+    <div class="explorer">
+      <div class="exp-tabs" id="expTabs"></div>
+      <div id="expBody"></div>
+    </div>
+    <figure class="figure" style="margin-top:18px">
+      <img src="/static/assets/poison-rate-grid.png" alt="Dört güçlü özellik için zehirlilik oranları" loading="lazy"/>
+      <figcaption>Kokudan sonra en belirleyici dört özellik ve zehirlilik oranları.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 5: model -->
+  <div class="story reveal">
+    <div class="story-head"><span class="story-num">05</span><h3>Modelin kendisi</h3></div>
+    <p class="say" id="say5"></p>
+    <div class="two">
+      <figure class="figure">
+        <img src="/static/assets/training-curves.png" alt="Eğitim ve test kayıp/doğruluk eğrileri" loading="lazy"/>
+        <figcaption>Kayıp logaritmik ölçekte; ilk 10 epoch'ta iş bitiyor.</figcaption>
+      </figure>
+      <figure class="figure">
+        <img src="/static/assets/confusion-matrix.png" alt="Test kümesi karmaşıklık matrisi" loading="lazy"/>
+        <figcaption>Test kümesinde tek bir yanlış sınıflandırma yok.</figcaption>
+      </figure>
+    </div>
+    <div class="archi" id="archi"></div>
+  </div>
+
+  <!-- 6: balance -->
+  <div class="story reveal">
+    <div class="story-head"><span class="story-num">06</span><h3>Veri seti dengesi</h3></div>
+    <p class="say" id="say6"></p>
+    <figure class="figure" style="max-width:560px;margin:0 auto">
+      <img src="/static/assets/class-balance.png" alt="Yenilebilir / zehirli dağılımı" loading="lazy"/>
+      <figcaption>Sınıf dağılımı — dengeli veri, doğruluk metriğini güvenilir kılıyor.</figcaption>
+    </figure>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="warn">
+      <b>⚠️ Sakın doğadaki mantarlara uygulama.</b> Bu uygulama UCI Mushroom (1987, Agaricus &amp; Lepiota)
+      veri setiyle eğitilmiş bir okul projesidir. Gerçek mantar toplarken tek doğru yöntem uzman kontrolüdür —
+      %100 test doğruluğu, doğada %100 güvenlik anlamına gelmez.
+    </div>
+    <div class="footrow">
+      <span>Mantar Dedektifi · PyTorch ANN · <span id="footParams"></span></span>
+      <span>Model <code>mushroom-classification.ipynb</code> defterinden hiç değiştirilmeden dışa aktarıldı.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const TR = n => n.toLocaleString('tr-TR');
+
+let META=null, INS=null, IMP={}, selection={}, timer=null, animP=48.2;
+
+/* ── spores ───────────────────────────────────────────── */
+(function spores(){
+  const box=$('#spores'), frag=document.createDocumentFragment();
+  for(let i=0;i<34;i++){
+    const s=document.createElement('span'); s.className='spore';
+    const sz=1.5+Math.random()*3.5;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;
+      animation-duration:${16+Math.random()*22}s;animation-delay:${-Math.random()*30}s`;
+    frag.appendChild(s);
+  }
+  box.appendChild(frag);
+})();
+
+/* ── boot ─────────────────────────────────────────────── */
+(async function boot(){
+  const [meta,ins] = await Promise.all([
+    fetch('/api/meta').then(r=>r.json()),
+    fetch('/api/insights').then(r=>r.json())
+  ]);
+  META=meta; INS=ins;
+  ins.feature_importance.forEach((f,i)=>IMP[f.key]={...f,rank:i});
+
+  renderHero(); renderFeatures(); renderInsights(); observeReveals(); predict();
+})();
+
+function renderHero(){
+  const d=INS.dataset, m=INS.model;
+  $('#heroStats').innerHTML = [
+    `<b>${TR(d.total)}</b> mantar incelendi`,
+    `<b>${d.n_model_features}</b> özellik · <b>${d.n_encoded}</b> girdi nöronu`,
+    `<b>%${m.test_accuracy}</b> test doğruluğu`,
+    `<b>${TR(m.n_params)}</b> parametre`
+  ].map(t=>`<span class="hero-stat">${t}</span>`).join('');
+  $('#footParams').textContent = `${TR(m.n_params)} parametre · ${m.architecture}`;
+}
+
+/* ── feature form ─────────────────────────────────────── */
+function featureCard(f){
+  const imp=IMP[f.key]||{cramers_v:0};
+  const dots=Math.max(1,Math.round(imp.cramers_v*5));
+  const chips=f.values.map(v=>`
+    <button class="chip" data-key="${f.key}" data-code="${v.code}" title="${TR(v.count)} mantar">
+      ${v.swatch?`<span class="dot" style="background:${v.swatch}"></span>`:''}${v.label}
+    </button>`).join('');
+  return `<div class="feat" id="feat-${f.key}">
+    <div class="feat-head">
+      <span class="ico">${f.icon}</span><span class="nm">${f.label}</span>
+      <span class="imp" title="Zehirlilikle bağ gücü: ${imp.cramers_v}">
+        ${[1,2,3,4,5].map(i=>`<i class="${i<=dots?'on':''}"></i>`).join('')}
+      </span>
+      <button class="clr" data-clear="${f.key}" title="Temizle">×</button>
+    </div>
+    <div class="chips">${chips}</div>
+  </div>`;
+}
+
+function renderFeatures(){
+  const sorted=[...META.features].sort((a,b)=>(IMP[a.key]?.rank??99)-(IMP[b.key]?.rank??99));
+  $('#featTop').innerHTML  = sorted.slice(0,6).map(featureCard).join('');
+  $('#featRest').innerHTML = sorted.slice(6).map(featureCard).join('');
+
+  document.addEventListener('click',e=>{
+    const chip=e.target.closest('.chip');
+    if(chip){
+      const {key,code}=chip.dataset;
+      selection[key]===code ? delete selection[key] : selection[key]=code;
+      syncForm(); schedule(); return;
+    }
+    const clr=e.target.closest('[data-clear]');
+    if(clr){ delete selection[clr.dataset.clear]; syncForm(); schedule(); }
+  });
+
+  $('#btnMore').addEventListener('click',()=>{
+    const rest=$('#featRest'), open=!rest.hidden;
+    rest.hidden=open;
+    $('#btnMore').textContent = open ? 'Diğer özellikleri göster ↓' : 'Diğer özellikleri gizle ↑';
+  });
+  $('#btnClear').addEventListener('click',()=>{ selection={}; syncForm(); schedule(); });
+  $('#btnRandom').addEventListener('click',()=>fillRandom(5));
+  $('#btnFull').addEventListener('click',()=>fillRandom(20));
+}
+
+async function fillRandom(n){
+  const r=await fetch('/api/random?n='+n).then(r=>r.json());
+  selection={...r.selection};
+  if(Object.keys(selection).some(k=>$('#featRest').contains($('#feat-'+k))) && $('#featRest').hidden)
+    $('#btnMore').click();
+  syncForm(); await predict();
+  $('#liveLabel').textContent = 'gerçek: ' + (r.truth==='poisonous'?'zehirli':'yenilebilir');
+  setTimeout(()=>$('#liveLabel').textContent='canlı',6000);
+}
+
+function syncForm(){
+  $$('.chip').forEach(c=>c.classList.toggle('on', selection[c.dataset.key]===c.dataset.code));
+  $$('.feat').forEach(f=>f.classList.toggle('filled', !!selection[f.id.slice(5)]));
+}
+
+/* ── prediction ───────────────────────────────────────── */
+function schedule(){ clearTimeout(timer); timer=setTimeout(predict,160); }
+
+async function predict(){
+  const card=$('#verdict'); card.classList.add('scanning');
+  const res=await fetch('/api/predict',{
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({selection})
+  }).then(r=>r.json());
+  setTimeout(()=>card.classList.remove('scanning'),260);
+  paint(res);
+}
+
+const C=2*Math.PI*120;
+function paint(r){
+  const poison = r.verdict==='poisonous';
+  const none   = r.entered===0;
+  const col    = none ? 'var(--amber)' : (poison ? 'var(--red)' : 'var(--green)');
+  const card   = $('#verdict');
+
+  card.style.setProperty('--vc', col);
+  card.style.setProperty('--glow', none?'rgba(232,178,95,.10)':(poison?'var(--red-glow)':'var(--green-glow)'));
+  card.classList.toggle('lit', !none);
+
+  $('#ring').style.strokeDashoffset = C*(1 - r.poison_pct/100);
+  capColors(none?['#e8b25f','#b8823a']:(poison?['#ff8478','#c73f33']:['#7ee89a','#3f9a58']));
+  setFace(none?'idle':(poison?(r.confidence>=90?'dead':'sick'):(r.confidence>=90?'happy':'unsure')));
+
+  $('#vWord').textContent = none ? 'Bekleniyor' : (poison?'ZEHİRLİ':'YENİLEBİLİR');
+  tweenPct(r.poison_pct);
+
+  $('#barE').style.width = r.edible_pct+'%';
+  $('#barP').style.width = r.poison_pct+'%';
+  $('#pctE').textContent = '%'+r.edible_pct.toFixed(1);
+  $('#pctP').textContent = '%'+r.poison_pct.toFixed(1);
+
+  $('#progLabel').textContent = `${r.entered} / ${r.total_features} özellik`;
+  $('#progBar').style.width = (r.entered/r.total_features*100)+'%';
+
+  $('#vSub').innerHTML = subtitle(r, poison, none);
+
+  // contributions
+  const cw=$('#contribWrap');
+  cw.hidden = r.contributions.length===0;
+  $('#contribs').innerHTML = r.contributions.slice(0,5).map(c=>{
+    const cls = c.delta>1.5?'up':(c.delta<-1.5?'down':'flat');
+    const sign = c.delta>0?'+':'';
+    return `<div class="contrib"><span class="ci">${c.icon}</span>
+      <span class="cl">${c.label}: <b>${c.value_label}</b></span>
+      <span class="delta ${cls}">${sign}${c.delta.toFixed(1)} puan</span></div>`;
+  }).join('');
+
+  // next questions
+  const aw=$('#askWrap');
+  aw.hidden = r.next_questions.length===0;
+  $('#askList').innerHTML = r.next_questions
+    .map(q=>`<button data-goto="${q.key}">${q.icon} ${q.label}</button>`).join('');
+  $$('#askList button').forEach(b=>b.onclick=()=>{
+    const el=$('#feat-'+b.dataset.goto);
+    if($('#featRest').contains(el) && $('#featRest').hidden) $('#btnMore').click();
+    el.scrollIntoView({behavior:'smooth',block:'center'});
+    el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+  });
+}
+
+function subtitle(r,poison,none){
+  if(none) return 'Henüz hiçbir özellik girmedin — bu sadece veri setinin genel oranı. Tek bir özellik bile tabloyu değiştirir.';
+  const word = poison?'zehirli':'yenilebilir';
+  const head = `<b>${word.charAt(0).toUpperCase()+word.slice(1)}</b> diyoruz ve bundan <b class="pct-big">%${r.confidence.toFixed(1)}</b> eminiz.`;
+  const detail = {
+    conditional:`Girdiğin ${r.entered} özelliğe uyan <b>${TR(r.support)}</b> gerçek mantarın <b>%${r.poison_pct.toFixed(1)}</b>'i zehirli çıkıyor.`,
+    blend:`Bu tarife uyan sadece <b>${r.support}</b> mantar var; sinir ağının kendi tahminiyle harmanladık.`,
+    imputed:`Bu kombinasyon veri setinde hiç görülmemiş — sinir ağı doğrudan kendi öğrendiklerinden karar verdi.`,
+    prior:''
+  }[r.mode] || '';
+  return `${head} ${detail}<br><span style="color:var(--muted-2)">${r.certainty_note}</span>`;
+}
+
+let pctRaf=null;
+function tweenPct(target){
+  cancelAnimationFrame(pctRaf);
+  const start=animP, t0=performance.now(), dur=650;
+  (function step(now){
+    const k=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-k,3);
+    animP = start + (target-start)*e;
+    if(k<1) pctRaf=requestAnimationFrame(step); else animP=target;
+  })(t0);
+}
+
+function capColors([a,b]){ $('#capA').setAttribute('stop-color',a); $('#capB').setAttribute('stop-color',b); }
+
+const FACES={
+  idle:`<circle cx="87" cy="152" r="4.2" fill="#3c332a"/><circle cx="113" cy="152" r="4.2" fill="#3c332a"/>
+        <path class="face-line" d="M92 166 q8 5 16 0"/>`,
+  happy:`<path class="face-line" d="M82 153 q5 -6 10 0"/><path class="face-line" d="M108 153 q5 -6 10 0"/>
+         <path class="face-line" d="M90 163 q10 10 20 0"/>
+         <circle class="blush" cx="78" cy="163" r="6" style="fill:#ff9a7a;opacity:.35"/>
+         <circle class="blush" cx="122" cy="163" r="6" style="fill:#ff9a7a;opacity:.35"/>`,
+  unsure:`<circle cx="87" cy="152" r="4.2" fill="#3c332a"/><circle cx="113" cy="152" r="4.2" fill="#3c332a"/>
+          <path class="face-line" d="M80 143 q6 -4 12 -1"/>
+          <path class="face-line" d="M90 166 q5 -5 10 0 q5 5 10 0"/>`,
+  sick:`<circle cx="87" cy="152" r="4.2" fill="#3c332a"/><circle cx="113" cy="152" r="4.2" fill="#3c332a"/>
+        <path class="face-line" d="M90 170 q10 -9 20 0"/>
+        <circle class="blush" cx="122" cy="160" r="7"/>`,
+  dead:`<path class="face-line" d="M82 147 l10 10 M92 147 l-10 10"/>
+        <path class="face-line" d="M108 147 l10 10 M118 147 l-10 10"/>
+        <path class="face-line" d="M90 170 q5 -6 10 0 q5 6 10 0"/>`
+};
+function setFace(k){ $('#face').innerHTML = FACES[k]||FACES.idle; }
+
+/* ── insights ─────────────────────────────────────────── */
+function renderInsights(){
+  const d=INS.dataset, m=INS.model, imp=INS.feature_importance;
+  const odor=INS.breakdown['odor'].values;
+  const odorImp=IMP['odor'];
+
+  $('#statGrid').innerHTML = [
+    ['a',TR(d.total),'incelenen mantar'],
+    ['r','%'+d.poisonous_pct,'zehirli çıkıyor'],
+    ['g','%'+m.test_accuracy,'test doğruluğu'],
+    ['p',TR(m.n_params),'model parametresi']
+  ].map(([c,n,l])=>`<div class="stat"><div class="n ${c}">${n}</div><div class="l">${l}</div></div>`).join('');
+
+  // 01 odor
+  const noOdor=odor.find(v=>v.label==='Kokusuz');
+  const deadly=odor.filter(v=>v.poison_rate===100).reduce((s,v)=>s+v.count,0);
+  $('#say1').innerHTML = `Tek bir özelliğe bakarak karar verecek olsan, seçmen gereken şey <span class="hl">koku</span>.
+    Cramér's V değeri <b>${odorImp.cramers_v}</b> — yani zehirlilikle neredeyse birebir örtüşüyor.
+    Sadece kokuya bakan aptal bir kural bile <b>%${odorImp.rule_accuracy}</b> doğrulukla çalışıyor;
+    modelin 94 girdisiyle vardığı %100'e bu kadar yakın başka hiçbir özellik yok.`;
+  $('#odorFacts').innerHTML = [
+    [`%${(deadly/d.total*100).toFixed(1)}`, `Mantarların bu kadarı, kokusu yüzünden <b>tek başına</b> kesin zehirli ilan edilebiliyor (${TR(deadly)} mantar).`],
+    [`%${(100-noOdor.poison_rate).toFixed(1)}`, `<b>Kokusuz</b> mantarların bu kadarı yenilebilir — ama kalan %${noOdor.poison_rate} tam da tehlikeli olan kısım.`],
+    [`${odor.filter(v=>v.poison_rate===0||v.poison_rate===100).length}/9`, `Dokuz koku kategorisinden bu kadarı <b>istisnasız</b> tek bir sınıfa ait.`]
+  ].map(([b,p])=>`<div class="fact"><div class="big">${b}</div><p>${p}</p></div>`).join('');
+
+  // 02 rules
+  $('#ruleGrid').innerHTML = INS.rules.map(r=>`
+    <div class="rule ${r.verdict==='poisonous'?'p':'e'}">
+      <span class="ri">${r.icon}</span>
+      <span class="rt"><b>${r.feature_label} = ${r.value}</b>
+        ${TR(r.count)} mantar · veri setinin %${r.share}'i
+        <span class="verdict-mini">${r.verdict==='poisonous'?'⚠ hepsi zehirli':'✓ hepsi yenilebilir'}</span>
+      </span></div>`).join('');
+
+  // 03 importance
+  const weak=imp[imp.length-1];
+  $('#say3').innerHTML = `Her özelliğin zehirlilikle bağını Cramér's V ile ölçtük. En tepede <b>${imp[0].label}</b> (${imp[0].cramers_v}),
+    en dipte <b>${weak.label}</b> (${weak.cramers_v}) var. Bu yüzden testte özellikler bu sıraya göre listeleniyor:
+    üstteki altı kartı doldurmak, alttaki on dördünü doldurmaktan çok daha fazla iş görür.
+    Ayrıca <b>veil-type</b> hiç değişmediği (tüm mantarlarda aynı) ve <b>gill-attachment</b> başka özelliklerle
+    fazla örtüştüğü için modele hiç sokulmadı — ${d.n_raw_features} özellikten ${d.n_model_features} tanesi kullanıldı.`;
+
+  // 04 explorer
+  const keys=imp.slice(0,10).map(f=>f.key);
+  $('#expTabs').innerHTML = keys.map((k,i)=>
+    `<button data-key="${k}" class="${i===0?'on':''}">${INS.breakdown[k].icon} ${INS.breakdown[k].label}</button>`).join('');
+  $$('#expTabs button').forEach(b=>b.onclick=()=>{
+    $$('#expTabs button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); drawExplorer(b.dataset.key);
+  });
+  drawExplorer(keys[0]);
+
+  // 05 model
+  $('#say5').innerHTML = `Mimari sade: ${d.n_encoded} one-hot girdi → 64 → 64 → 1 nöron, aralarda ReLU, sonda Sigmoid.
+    Toplam <b>${TR(m.n_params)}</b> parametre. ${m.epochs} epoch boyunca Adam ile eğitildi ama işin bittiği yer
+    <b>10. epoch</b>: kayıp orada 10⁻⁴ seviyesine iniyor. ${TR(m.test_size)} mantarlık test kümesinde
+    <b>tek bir hata bile yok</b> — çünkü bu veri seti, kurallarla mükemmel ayrılabilen nadir setlerden biri.`;
+  $('#archi').innerHTML = [
+    ['Mimari',m.architecture,'mono'],['Kayıp',m.loss,''],['Optimizer',m.optimizer,''],
+    ['Epoch',m.epochs,''],['Batch',m.batch_size,''],
+    ['Eğitim / Test',`${TR(m.train_size)} / ${TR(m.test_size)}`,''],
+    ['Test doğruluğu','%'+m.test_accuracy,''],['Test kaybı',m.final_test_loss.toExponential(1),'mono']
+  ].map(([k,v,c])=>`<div class="acell"><div class="k">${k}</div><div class="v ${c}">${v}</div></div>`).join('');
+
+  // 06 balance
+  $('#say6').innerHTML = `${TR(d.total)} mantarın <b>${TR(d.edible)}</b> tanesi yenilebilir (%${d.edible_pct}),
+    <b>${TR(d.poisonous)}</b> tanesi zehirli (%${d.poisonous_pct}). Sınıflar neredeyse eşit olduğu için
+    doğruluk metriği yanıltmıyor. Testte hiçbir özellik girmediğinde gördüğün <b>%${d.poisonous_pct}</b>
+    tam olarak bu oran: modelin hiçbir şey bilmeden yaptığı en dürüst tahmin.`;
+}
+
+function drawExplorer(key){
+  const b=INS.breakdown[key], max=Math.max(...b.values.map(v=>v.count));
+  $('#expBody').innerHTML = b.values.map(v=>{
+    const w=(v.count/max*100).toFixed(1);
+    return `<div class="exp-row">
+      <span class="en">${v.swatch?`<span class="dot" style="background:${v.swatch}"></span>`:''}${v.label}</span>
+      <span class="exp-bar" style="width:${w}%">
+        <i class="e" style="width:${100-v.poison_rate}%"></i><i class="p" style="width:${v.poison_rate}%"></i>
+      </span>
+      <span class="ev"><b>%${v.poison_rate}</b> zehirli · ${TR(v.count)}</span>
+    </div>`;
+  }).join('');
+}
+
+/* ── reveal on scroll ─────────────────────────────────── */
+function observeReveals(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); countUp(e.target); io.unobserve(e.target); }
+  }),{threshold:.15});
+  $$('.reveal').forEach(el=>io.observe(el));
+}
+
+function countUp(root){
+  $$('.stat .n',root).forEach(el=>{
+    const raw=el.textContent, pct=raw.startsWith('%');
+    const target=parseFloat(raw.replace('%','').replace(/\./g,'').replace(',','.'));
+    if(isNaN(target)) return;
+    const dec=raw.includes(',')||(pct&&raw.includes('.'))?1:0, t0=performance.now();
+    (function step(now){
+      const k=Math.min(1,(now-t0)/1100), e=1-Math.pow(1-k,3), val=target*e;
+      el.textContent=(pct?'%':'')+(dec?val.toFixed(1).replace('.',','):TR(Math.round(val)));
+      if(k<1) requestAnimationFrame(step); else el.textContent=raw;
+    })(t0);
+  });
+}
+</script>
+</body>
+</html>
