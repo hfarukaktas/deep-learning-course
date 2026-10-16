@@ -67,10 +67,37 @@ def load_data(train_split: float = 0.9):
 
     return train_data, test_data, tokenizer
 
+def get_batch(data: torch.Tensor, block_size: int, batch_size: int):
+    # "to be or not to be"
+    # "to b" -> X
+    # "to be..." -> y
+    # X = ["T", "o", " ", "b"]
+    # y = ["o", " ", "b", "e"]
 
+    # X = ["o", " ", "b", "e"]
+    # y = [" ", "b", "e", " "]
 
+    max_start = len(data) - block_size - 1
+
+    positions = torch.randint(max_start, (batch_size, ))
+    # print(f"Positions: {positions}")
+
+    x_list = []
+    y_list = []
+
+    for pos in positions:
+        x_list.append(data[pos: pos + block_size])
+        y_list.append(data[pos + 1: pos + block_size + 1])
+
+    x = torch.stack(x_list)
+    y = torch.stack(y_list)
+
+    return x,y
 
 
 if __name__ == "__main__":
     train_data, test_data, tokenizer = load_data()
+    x,y = get_batch(data=train_data, block_size=256, batch_size=5)
+    print(x.shape)
+    print(y.shape)
 
