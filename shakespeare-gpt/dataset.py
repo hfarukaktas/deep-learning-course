@@ -40,26 +40,37 @@ class CharacterTokenizer:
     def decode(self, ids:list)->str:
         if isinstance(ids, torch.Tensor):
             ids = ids.tolist()
-        
+
         decoded_text = []
         for id in ids:
             decoded_text.append(self.id_to_char[id])
 
         return ''.join(decoded_text)
 
-
-
-
-if __name__ == "__main__":
+def load_data(train_split: float = 0.9):
     download_shakespeare()
 
     with open(DATA_PATH, "r", encoding="utf-8") as f:
         text = f.read()
-
     tokenizer = CharacterTokenizer(text)
-    print(tokenizer.encode("Hasan Faruk Aktas"))
 
-    # encoded "Hasan Faruk Aktas" str -> [20, 39, 57, 39, 52, 1, 18, 39, 56, 59, 49, 1, 13, 49, 58, 39, 57]
+    all_ids = tokenizer.encode(text)
+    data = torch.tensor(all_ids, dtype=torch.long)
 
-    print(tokenizer.decode([20, 39, 57, 39, 52, 1, 18, 39, 56, 59, 49, 1, 13, 49, 58, 39, 57]))
+    split_index = int(train_split * len(data))
+    train_data: torch.Tensor = data[:split_index]
+    test_data = data[split_index:]
+
+    print(f"Train Data Size: {len(train_data)}")
+    print(f"Test Data Size: {len(test_data)}")
+
+
+    return train_data, test_data, tokenizer
+
+
+
+
+
+if __name__ == "__main__":
+    train_data, test_data, tokenizer = load_data()
 
