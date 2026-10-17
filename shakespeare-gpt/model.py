@@ -82,7 +82,24 @@ class GPT(nn.Module):
         elif isinstance(module, nn.Embedding):
             torch.nn.init.normal_(module.weight,mean = 0.0, std = 0.02)
 
+    def forward(self, input_ids: torch.Tensor, targets: torch.Tensor,):
+
+        batch_size, seq_len = input_ids.shape
+        device = input_ids.device
+
+        token_emb = self.token_embedding(input_ids)
+        positions = torch.arange(seq_len, device = device)
+        pos_emb = self.position_embedding(positions)
+
+
 
 
 if __name__ == "__main__":
     gpt = GPT(vocab_size=65, embedding_dim=384)
+    batch_size =4
+    seq_len = 64
+    dummy_input = torch.randint(0,65,(batch_size,seq_len))
+    batch, sequence = dummy_input.shape
+    print(torch.arange(sequence))
+    print(dummy_input)
+    print(dummy_input.shape)
