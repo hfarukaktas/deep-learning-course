@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9014d0cc-2237-47b1-a38d-9457107ceb1d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../shakespeare-gpt/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/../shakespeare-gpt/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

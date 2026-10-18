@@ -91,15 +91,36 @@ class GPT(nn.Module):
         positions = torch.arange(seq_len, device = device)
         pos_emb = self.position_embedding(positions)
 
+        x = self.dropout(token_emb + pos_emb)
+        mask = self.causal_mask[:seq_len,:seq_len]
+
+        for block in self.blocks:
+            x = block(x, mask)
+
+        x = self.ln_final(x)
+        logits = self.output_proj(x)
+        print(f"Logits Shape: {logits.shape}")
+        # (4,256,65) -> batch_size, sequence length, vocabulary size
+
+        loss = None
+        if targets is not None:
+            batch_size, seq_len, vocab_size = logits.shape
+            logits_flat = logits.reshape(batch_size * seq_len, vocab_size)
+            targets_flat = targets.reshape(batch_size * seq_len)
+            loss = self.loss_fn(logits_flat, targets_flat)
+        print(loss)
+        print(logits)
+
+        return logits, loss
+
 
 
 
 if __name__ == "__main__":
     gpt = GPT(vocab_size=65, embedding_dim=384)
     batch_size =4
-    seq_len = 64
+    seq_len = 256
     dummy_input = torch.randint(0,65,(batch_size,seq_len))
+    dummy_target = torch.randint(0,65,(batch_size,seq_len))
     batch, sequence = dummy_input.shape
-    print(torch.arange(sequence))
-    print(dummy_input)
-    print(dummy_input.shape)
+    gpt(dummy_input, dummy_target)
