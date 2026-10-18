@@ -73,7 +73,7 @@ class GPT(nn.Module):
         self.apply(self._init_weights)
 
         total_params = sum(p.numel() for p in self.parameters())
-        print(f"Total Parameters: {total_params}")
+        #print(f"Total Parameters: {total_params}")
 
 
     def _init_weights(self, module):
@@ -101,7 +101,7 @@ class GPT(nn.Module):
 
         x = self.ln_final(x)
         logits = self.output_proj(x)
-        print(f"Logits Shape: {logits.shape}")
+        #print(f"Logits Shape: {logits.shape}")
         # (4,256,65) -> batch_size, sequence length, vocabulary size
 
         loss = None
@@ -130,7 +130,7 @@ class GPT(nn.Module):
 
             last_logits = last_logits/temperature
             probs = F.softmax(last_logits, dim=-1)
-            print(f"probs: {probs}")
+            #print(f"probs: {probs}")
             next_token = torch.multinomial(probs, num_samples=1)
             input_ids = torch.cat([input_ids,next_token], dim=1)
         return input_ids
