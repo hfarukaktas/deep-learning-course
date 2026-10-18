@@ -42,6 +42,8 @@ class GPT(nn.Module):
                  ):
         super().__init__()
 
+        self.block_size = block_size
+
         self.token_embedding = nn.Embedding(num_embeddings=vocab_size,
                                             embedding_dim=embedding_dim)
 
@@ -82,7 +84,7 @@ class GPT(nn.Module):
         elif isinstance(module, nn.Embedding):
             torch.nn.init.normal_(module.weight,mean = 0.0, std = 0.02)
 
-    def forward(self, input_ids: torch.Tensor, targets: torch.Tensor,):
+    def forward(self, input_ids: torch.Tensor, targets: torch.Tensor = None,):
 
         batch_size, seq_len = input_ids.shape
         device = input_ids.device
@@ -108,19 +110,41 @@ class GPT(nn.Module):
             logits_flat = logits.reshape(batch_size * seq_len, vocab_size)
             targets_flat = targets.reshape(batch_size * seq_len)
             loss = self.loss_fn(logits_flat, targets_flat)
-        print(loss)
-        print(logits)
+        #print(loss)
+        #print(logits)
 
         return logits, loss
+
+    @torch.no_grad()
+    def generate(self, input_ids: torch.Tensor, max_new_tokens: int, temperature:float = 0.5):
+        for _ in range(max_new_tokens):
+
+            if input_ids.size(1) < self.block_size:
+                current_input = input_ids
+            else:
+                current_input = input_ids[:,-self.block_size:]
+
+            logits, _ = self.forward(input_ids=current_input)
+
+            last_logits = logits[:,-1,:]
+
+            last_logits = last_logits/temperature
+            probs = F.softmax(last_logits, dim=-1)
+            print(f"probs: {probs}")
+            next_token = torch.multinomial(probs, num_samples=1)
+            input_ids = torch.cat([input_ids,next_token], dim=1)
+        return input_ids
 
 
 
 
 if __name__ == "__main__":
-    gpt = GPT(vocab_size=65, embedding_dim=384)
+    device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+    gpt = GPT(vocab_size=65, embedding_dim=384).to(device)
     batch_size =4
     seq_len = 256
-    dummy_input = torch.randint(0,65,(batch_size,seq_len))
-    dummy_target = torch.randint(0,65,(batch_size,seq_len))
+    dummy_input = torch.randint(0,65,(batch_size,seq_len)).to(device)
+    dummy_target = torch.randint(0,65,(batch_size,seq_len)).to(device)
     batch, sequence = dummy_input.shape
     gpt(dummy_input, dummy_target)
+    gpt.generate(dummy_input, max_new_tokens=1)
