@@ -1,6 +1,8 @@
 import os
 import time
 import torch
+from torch.utils.checkpoint import checkpoint
+
 from model import GPT
 from dataset import load_data, get_batch
 
@@ -52,7 +54,70 @@ def generate_sample(model, tokeizer):
     model.train()
     return tokeizer.decode(output_ids[0])
 
+def train():
+    train_data,test_data, tokenizer = load_data()
+    vocab_size = tokenizer.vocab_size
+    model = GPT(vocab_size=vocab_size,
+                embedding_dim=EMBEDDING_DIM,
+                num_heads=NUM_HEADS,
+                num_layers=NUM_LAYERS,
+                dropout=DROPOUT,
+                block_size=BLOCK_SIZE)
+    model = model.to(DEVICE)
+    # model = torch.compile(model)
+    optimizer = torch.optim.AdamW(model.parameters(), lr = LEARNING_RATE)
+    os.makedirs("checkpoints", exist_ok=True)
+    start_time = time.time()
+
+    for iteration in range(MAX_ITERS):
+        lr = get_learning_rate(iteration)
+        for param_group in optimizer.param_groups:
+            param_group["lr"] = lr
+
+        x,y = get_batch(train_data, BLOCK_SIZE,BATCH_SIZE)
+        x,y = x.to(DEVICE), y.to(DEVICE)
+
+        logits, loss = model(x,y)
+        optimizer.zero_grad()
+        loss.backward()
+
+        # gradient clipping
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+
+        optimizer.step()
+
+        if iteration % EVAL_INTERVAL == 0 or iteration == MAX_ITERS-1:
+            losses = evaluate(model,train_data,test_data)
+            elapsed_time = time.time() - start_time
+
+            print(f"Iteration: {iteration},"
+                  f"Train loss: {losses['train']}, "
+                  f"Test loss: {losses['test']},"
+                  f"Time: {elapsed_time}")
+
+            if iteration > 0:
+                print(generate_sample(model, tokeizer=tokenizer))
+
+    checkpoint = {
+        "model_state_dict": model.state_dict(),
+        "iteration": MAX_ITERS,
+        "test_loss": losses["test"],
+        "config": {
+            "vocab_size":vocab_size,
+            "embedding_dim":EMBEDDING_DIM,
+            "num_heads": NUM_HEADS,
+            "num_layers": NUM_LAYERS,
+            "dropout":DROPOUT,
+            "block_size": BLOCK_SIZE
+        }
+    }
+
+    torch.save(checkpoint, CHECKPOINT_PATH)
+    total_time = time.time() - start_time
+    print(f"Total Time: {total_time}")
+    print(f"Final Test Loss {losses['test']}")
+    print(f"Model Saved to {CHECKPOINT_PATH}")
+
+
 if __name__ == "__main__":
-    gpt = GPT(vocab_size=65, embedding_dim=384).to(DEVICE)
-    train_data, test_data, tokenizer = load_data()
-    print(generate_sample(gpt, tokenizer))
+        train()
